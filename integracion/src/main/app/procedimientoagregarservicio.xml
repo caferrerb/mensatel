@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+    <flow name="procedimientoagregarservicioFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/procedimientos/agregarservicio" allowedMethods="POST" doc:name="HTTP"/>
+        <json:validate-schema schemaLocation="jsonAgregarservicio.json" doc:name="Validacion esquema JSON"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="JSON a objeto"/>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:is-number value="#[payload.Agregarservicio.codigoabonado]" numberType="INTEGER" message="#['El codigo del abonado es incorrecto']"/>
+                <validation:is-number value="#[payload.Agregarservicio.codigoservicio]" numberType="INTEGER" message="#['El codigo del servicio es incorrecto']"/>
+            </validation:validations>
+        </validation:all>
+        <db:stored-procedure config-ref="Oracle_Configuration" doc:name="Base de datos Mensatel">
+            <db:parameterized-query><![CDATA[{call AGREGA_SERVICIOSUPLEMENTARIO(:P_ABONADO,
+								   :P_ID_SERVICIO,
+								   :COD_RESP,
+								   :MSJ)}]]></db:parameterized-query>
+            <db:in-param name="P_ABONADO" type="NUMERIC" value="#[payload.Agregarservicio.codigoabonado]"/>
+            <db:in-param name="P_ID_SERVICIO" type="NUMERIC" value="#[payload.Agregarservicio.codigoservicio]"/>
+            <db:out-param name="COD_RESP" type="VARCHAR"/>
+            <db:out-param name="MSJ" type="VARCHAR"/>
+        </db:stored-procedure>
+        <json:object-to-json-transformer doc:name="Objeto a JSON"/>
+        <choice-exception-strategy doc:name="Excepciones Capturadas">
+            <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-1,
+		respuesta:'Error estructura json'
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(org.mule.extension.validation.api.MultipleValidationException)]" doc:name="Excepcion en los validadores">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-2,
+		respuesta:payload.message
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+        </choice-exception-strategy>
+    </flow>
+</mule>

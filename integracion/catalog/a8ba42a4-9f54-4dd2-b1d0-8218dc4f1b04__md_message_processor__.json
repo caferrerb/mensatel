@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Web_Service_Consumer",
+            "typeId": "DarDeAltaResponse"
+        }
+    },
+    "id": "a8ba42a4-9f54-4dd2-b1d0-8218dc4f1b04",
+    "version": "5.2.0.0"
+}

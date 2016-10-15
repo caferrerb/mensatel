@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Registrarmensaje": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "numerodestino": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero",
+        "numerodestino"
+      ]
+    }
+  },
+  "required": [
+    "Registrarmensaje"
+  ]
+}

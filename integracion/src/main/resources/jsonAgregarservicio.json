@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Agregarservicio": {
+      "type": "object",
+      "properties": {
+        "codigoabonado": {
+          "type": "string"
+        },
+        "codigoservicio": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "codigoabonado",
+        "codigoservicio"
+      ]
+    }
+  },
+  "required": [
+    "Agregarservicio"
+  ]
+}

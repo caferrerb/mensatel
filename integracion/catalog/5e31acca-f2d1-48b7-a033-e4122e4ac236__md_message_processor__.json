@@ -1,0 +1,14 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {},
+        "flowVariables": {
+            "mensaje": {
+                "connectorName": "#_custom_mule_metadata_type_#",
+                "typeId": "xmlTeletrim"
+            }
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "5e31acca-f2d1-48b7-a033-e4122e4ac236",
+    "version": "5.2.0.0"
+}

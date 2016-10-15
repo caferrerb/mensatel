@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Quitarplan": {
+      "type": "object",
+      "properties": {
+        "numeroabonado": {
+          "type": "string"
+        },
+        "codigoplan": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numeroabonado",
+        "codigoplan"
+      ]
+    }
+  },
+  "required": [
+    "Quitarplan"
+  ]
+}

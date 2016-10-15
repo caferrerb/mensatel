@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Web_Service_Consumer",
+            "typeId": "ConsultarOperadorResponse"
+        }
+    },
+    "id": "1db5ae01-0eb5-4f82-8f16-1d769aa6a98f",
+    "version": "5.2.0.0"
+}

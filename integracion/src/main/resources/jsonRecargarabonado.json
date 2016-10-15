@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Recargarabonado": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "codigoplan": {
+          "type": "string"
+        },
+        "monto": {
+          "type": "string"
+        },
+        "numTarjeta": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero",
+        "codigoplan",
+        "monto",
+        "numTarjeta"
+      ]
+    }
+  },
+  "required": [
+    "Recargarabonado"
+  ]
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><definitions targetNamespace="http://www.test.com" name="PersonaService">
+
+    <types>
+       <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    		targetNamespace="http://www.test.com">
+
+            <element name="Persona" type="tn:persona">
+                <complexType>
+                    <secuense>
+                    <element name="nombre" type="xs:string"/>
+                     <element name="cedula" type="xs:string"/>
+                      <element name="telefono" type="xs:string"/>
+                    
+                    </secuense>
+                </complexType>
+            </element>
+
+        </schema>
+    </types>
+    
+    <message name="buscarResponse">
+        <part name="value" type="tn:persona"/>
+    </message>
+
+    <message name="buscarRequest">
+        <part name="cedula" type="xs:string"/>
+    </message>
+    
+    <portType name="personaService">
+
+            <operation name="buscarPersona">
+                <input message="buscarRequest"/>
+                <output message="buscarResponse"/>
+            </operation>
+
+    </portType>
+    
+    <binding type="personaService" name="b1">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http">
+            <operation>
+                <soap:operation soapAction="http://example.com/PersonaService"/>
+                <input><soap:body use="literal"/></input>
+                <output><soap:body use="literal"/></output>
+            </operation>
+        <soap:binding>
+    </binding>
+
+     <service name="PersonaService">
+
+            <port binding="tns:personaService" name="personaService">
+
+                <address location="http://localhost:28080/personaService"/>
+
+            </port> 
+
+
+     </service>
+
+   
+</definitions>

@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ mysql-connector-java-5.1.39.jar hibernate-entityma
+ nager-5.2.2.Final.jar jboss-logging-3.3.0.Final.jar dom4j-1.6.1.jar h
+ ibernate-commons-annotations-5.0.1.Final.jar hibernate-jpa-2.1-api-1.
+ 0.0.Final.jar javassist-3.20.0-GA.jar geronimo-jta_1.1_spec-1.1.1.jar
+  hibernate-core-5.2.2.Final.jar antlr-2.7.7.jar jandex-2.0.0.Final.ja
+ r classmate-1.3.0.jar cdi-api-1.1.jar el-api-2.2.jar jboss-intercepto
+ rs-api_1.1_spec-1.0.0.Beta1.jar jsr250-api-1.0.jar javax.inject-1.jar
+  mail-1.4.7.jar activation-1.1.jar commons-codec-1.10.jar
+Class-Path: .
+Rsrc-Main-Class: co.edu.eam.ingesoft.soa.alfacom.logica.comm.Comunicac
+ iones
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+

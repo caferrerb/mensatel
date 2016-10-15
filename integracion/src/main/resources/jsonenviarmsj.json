@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Enviarmsj": {
+      "type": "object",
+      "properties": {
+        "abonadoorigen": {
+          "type": "string"
+        },
+        "abonadodestino": {
+          "type": "string"
+        },
+        "mensaje": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "abonadoorigen",
+        "abonadodestino",
+        "mensaje"
+      ]
+    }
+  },
+  "required": [
+    "Enviarmsj"
+  ]
+}

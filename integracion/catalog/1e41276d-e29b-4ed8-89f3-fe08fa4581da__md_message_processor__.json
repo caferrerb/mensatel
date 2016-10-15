@@ -1,0 +1,19 @@
+{
+    "inputMessageMetadata": {
+        "flowVariables": {
+            "DarDeAlta": {},
+            "orden": {
+                "connectorName": "Web_Service_Consumer",
+                "typeId": "DarDeAlta"
+            }
+        }
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Web_Service_Consumer",
+            "typeId": "DarDeAlta"
+        }
+    },
+    "id": "1e41276d-e29b-4ed8-89f3-fe08fa4581da",
+    "version": "5.2.0.0"
+}

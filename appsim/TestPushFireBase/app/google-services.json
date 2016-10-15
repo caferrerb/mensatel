@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "646055608748",
+    "firebase_url": "https://mensatel-47746.firebaseio.com",
+    "project_id": "mensatel-47746",
+    "storage_bucket": "mensatel-47746.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646055608748:android:0b534434f9f9f01e",
+        "android_client_info": {
+          "package_name": "com.example.caferrerb.testpush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646055608748-tbp3ikdpqn0ujebrh5no4rj65gr4cq7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1f2xTQcJQmNmSJjyVdGEi7lrh4OBO0B8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

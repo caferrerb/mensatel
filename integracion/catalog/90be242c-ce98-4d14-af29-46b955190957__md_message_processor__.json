@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Web_Service_Consumer",
+            "typeId": "DarDeBajaResponse"
+        }
+    },
+    "id": "90be242c-ce98-4d14-af29-46b955190957",
+    "version": "5.2.0.0"
+}

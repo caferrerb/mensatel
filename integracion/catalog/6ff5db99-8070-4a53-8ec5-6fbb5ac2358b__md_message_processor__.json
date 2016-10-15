@@ -1,0 +1,10 @@
+{
+    "inputMessageMetadata": {
+        "flowVariables": {
+            "enviar": {}
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "6ff5db99-8070-4a53-8ec5-6fbb5ac2358b",
+    "version": "5.2.0.0"
+}

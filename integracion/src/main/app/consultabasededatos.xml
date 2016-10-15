@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <flow name="consultabasededatosFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/consultas/informacion" allowedMethods="POST" doc:name="HTTP"/>
+        <json:validate-schema schemaLocation="jsonConsultaemail.json" doc:name="Validacion esquema JSON"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON a Objeto"/>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:matches-regex value="#[payload.email.numeroabonado]" regex="[0-9]{10}" message="#['El numero del abonado es invalido']"/>
+            </validation:validations>
+        </validation:all>
+        <db:select config-ref="Oracle_Configuration" doc:name="Database">
+            <db:parameterized-query><![CDATA[SELECT us.CORREO,us.APELLIDO,us.NOMBRE,us.DOCUMENTO,us.TIPO_DOC FROM USUARIO us JOIN ABONADO ab ON ab.FK_USU_DOC=us.DOCUMENTO WHERE ab.NUMERO=#[payload.email.numeroabonado]]]></db:parameterized-query>
+        </db:select>
+        <choice doc:name="Choice">
+            <when expression="#[payload.isEmpty()]">
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:"No se encontro correo del usuario"
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </when>
+            <otherwise>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	correo:payload[0].CORREO,
+	documento:payload[0].DOCUMENTO,
+	apellido:payload[0].APELLIDO,
+	nombre:payload[0].NOMBRE,
+	tipodoc:payload[0].TIPO_DOC
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </otherwise>
+        </choice>
+    </flow>
+</mule>

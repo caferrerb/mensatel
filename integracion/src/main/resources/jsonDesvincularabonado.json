@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Desvincularabonado": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero"
+      ]
+    }
+  },
+  "required": [
+    "Desvincularabonado"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {},
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "Web_Service_Teletrim",
+            "typeId": "enviarmsjabonadoResponse"
+        }
+    },
+    "id": "f228fb65-dcee-48e5-a556-63de8d09f827",
+    "version": "5.2.0.0"
+}

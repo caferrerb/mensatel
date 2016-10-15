@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <ws:consumer-config name="Web_Service_Consumer" service="ServicioWebService" port="PortabilidadNumericaWsldPort" serviceAddress="http://174.142.65.144:8000/PortabilidadNumerica/PortabilidadNumerica" wsdlLocation="http://174.142.65.144:8000/PortabilidadNumerica/PortabilidadNumerica?wsdl" doc:name="Web Service Consumer"/>
+    <flow name="dardealtaportabilidadFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/portabilidadnumerica/dardealta" allowedMethods="POST" doc:name="Endpoint Servicio Dar de Alta"/>
+        <json:validate-schema schemaLocation="jsonDarAlta.json" doc:name="Validacion del esquema "/>
+        <json:json-to-xml-transformer doc:name="Conversion JSON a XML"/>
+        <object-to-string-transformer doc:name="Conversion objeto a cadena "/>
+        <set-variable variableName="DarDeAlta" value="#[payload]" encoding="UTF-8" mimeType="application/xml" doc:name="Variable DarDeAlta"/>
+        <dw:transform-message metadata:id="02818605-4fc9-4fae-bf19-2f0fccff12fa" doc:name="Transform Message">
+            <dw:input-variable variableName="DarDeAlta"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	id:payload.DarDeAlta.idtransaccion,
+	num:payload.DarDeAlta.numeroabonado,
+	oper:payload.DarDeAlta.operador
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:is-not-empty value="#[payload.oper]" message="#['El operador no puede estar vacio']"/>
+                <validation:is-not-empty value="#[payload.id]" message="#['El id de la transaccion no puede esta vacio']"/>
+                <validation:is-not-empty value="#[payload.num]" message="#['El numero del abonado esta vacio']"/>
+                <validation:is-number value="#[payload.oper]" numberType="INTEGER" message="#['El tipo de dato del operador es invalido']"/>
+                <validation:is-number value="#[payload.num]" numberType="LONG" message="#['El tipo de dato del numero del abonado es invalido']"/>
+                <validation:is-number value="#[payload.id]" numberType="INTEGER" message="#['El tipo de dato del id es invalido']"/>
+            </validation:validations>
+        </validation:all>
+        <dw:transform-message metadata:id="65a3672d-2c08-4fe3-bab7-c81c7419edf4" doc:name="Transform Message">
+            <dw:input-variable variableName="DarDeAlta"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://operaciones.eam.edu.co/
+---
+{
+	ns0#DarDeAlta: {
+		idTransaccion: payload.id,
+		numeroAbonado: payload.num,
+		operador: payload.oper
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="DarDeAlta" doc:name="Consumo servicio SOAP DarDeAlta"/>
+        <dw:transform-message metadata:id="a8ba42a4-9f54-4dd2-b1d0-8218dc4f1b04" doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://operaciones.eam.edu.co/
+---
+{
+	ns0#DarDeAltaResponse: {
+		return: {
+			codigo: payload.ns0#DarDeAltaResponse.return.codigo,
+			idTransaccion: payload.ns0#DarDeAltaResponse.return.idTransaccion,
+			mensaje: payload.ns0#DarDeAltaResponse.return.mensaje
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <set-payload value="#[payload]" doc:name="Respuesta Salida"/>
+        <logger level="INFO" doc:name="Logger"/>
+        <choice-exception-strategy doc:name="Choice Exception Strategy">
+            <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Exception estructura de JSON">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-1,
+		respuesta:'Error estructura json'
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(org.mule.extension.validation.api.MultipleValidationException)]" doc:name="Exception en los validadores">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-2,
+		respuesta:payload.message
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+        </choice-exception-strategy>
+    </flow>
+</mule>

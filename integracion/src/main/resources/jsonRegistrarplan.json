@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Registrarplan": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "codigoplan": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero",
+        "codigoplan"
+      ]
+    }
+  },
+  "required": [
+    "Registrarplan"
+  ]
+}

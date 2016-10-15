@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "DarDeBaja": {
+      "type": "object",
+      "properties": {
+        "idtransaccion": {
+          "type": "string"
+        },
+        "numeroabonado": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "idtransaccion",
+        "numeroabonado"
+      ]
+    }
+  },
+  "required": [
+    "DarDeBaja"
+  ]
+}
