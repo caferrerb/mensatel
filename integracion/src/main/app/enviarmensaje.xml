@@ -138,6 +138,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 ---
 {
 	numerodestino:flowVars.enviar.Enviarmsj.abonadodestino,
+	abonadoorigen:flowVars.enviar.Enviarmsj.abonadoorigen,
 	mensaje:flowVars.enviar.Enviarmsj.mensaje
 }]]></dw:set-payload>
                                         </dw:transform-message>
@@ -194,7 +195,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 {
 	respuesta:{
 		codigo:-1,
-		respuesta:"No posee suficientes mensajes"
+		respuesta:"El abonado no posee mensajes"
 	}
 }]]></dw:set-payload>
                                 </dw:transform-message>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
@@ -10,10 +10,11 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
-http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd">
+http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/current/mule-smtp.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
     <smtp:gmail-connector name="Gmail" validateConnections="true" doc:name="Gmail"/>
     <flow name="colaemailFlow">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/notificaciones/colaemail" allowedMethods="POST" doc:name="HTTP"/>
+        <jms:inbound-endpoint queue="${jm.colaEmail}" connector-ref="Active_MQ" doc:name="Cola Email"/>
         <json:validate-schema schemaLocation="jsonEmail.json" doc:name="Validacion del esquema JSON"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON a Objeto"/>
         <validation:all doc:name="Validacion de campos">
@@ -34,17 +35,20 @@ http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smt
 	}
 }]]></dw:set-payload>
         </dw:transform-message>
-        <http:request config-ref="HTTP_Request_Configuration" path="/consultas/informacion" method="POST" host="localhost" port="8081" doc:name="Consumo Servicio consulta"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/consultas/informacionusuario" method="POST" host="localhost" port="8081" doc:name="Consumo Servicio consulta"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="JSON to Object"/>
         <set-variable variableName="correodestinatario" value="#[payload.correo]" encoding="UTF-8" doc:name="Variable correo"/>
         <set-payload value="#[flowVars.correo.email.mensaje]" mimeType="text/html" doc:name="Mensaje del correo"/>
-        <dw:transform-message doc:name="Transform Message">
+        <smtp:outbound-endpoint host="smtp.gmail.com" port="587" user="gnarpilinfeliz%40gmail.com" password="pilinfeliz123" to="#[flowVars.correodestinatario]" from="gnarpilinfeliz%40gmail.com" subject="#[flowVars.correo.email.asunto]" responseTimeout="10000" doc:name="SMTP"/>
+        <dw:transform-message doc:name="Respuesta">
             <dw:set-payload><![CDATA[%dw 1.0
-%output application/java
+%output application/json
 ---
 {
+respuesta:"Enviado"
 }]]></dw:set-payload>
         </dw:transform-message>
+        
         <choice-exception-strategy doc:name="Excepciones Capturadas">
             <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
                 <set-payload value="#[exception]" doc:name="Captura del mensaje"/>

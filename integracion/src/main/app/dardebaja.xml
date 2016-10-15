@@ -62,7 +62,7 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
 	}
 }]]></dw:set-payload>
         </dw:transform-message>
-        <set-payload value="#[payload]" doc:name="Respuesta Salida"/>
+        <set-payload value="#[payload]" doc:name="Respuesta Salida" encoding="UTF-8"/>
         <logger level="INFO" doc:name="Logger"/>
         <choice-exception-strategy doc:name="Choice Exception Strategy">
             <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">

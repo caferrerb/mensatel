@@ -2,39 +2,39 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "Recargarabonado": {
+    "PagarPasarela": {
       "type": "object",
       "properties": {
-        "numero": {
+        "numeroabonado": {
           "type": "string"
         },
-        "plan": {
-          "type": "string"
-        },
-        "monto": {
-          "type": "string"
-        },
-        "numTarjeta": {
+        "numtarjeta": {
           "type": "string"
         },
         "codigoseguridad": {
           "type": "string"
         },
-        "fechaex": {
+        "fechaexpiracion": {
+          "type": "string"
+        },
+        "valor": {
+          "type": "string"
+        },
+        "descripcion": {
           "type": "string"
         }
       },
       "required": [
-        "numero",
-        "plan",
-        "monto",
-        "numTarjeta",
+        "numeroabonado",
+        "numtarjeta",
         "codigoseguridad",
-        "fechaex"
+        "fechaexpiracion",
+        "valor",
+        "descripcion"
       ]
     }
   },
   "required": [
-    "Recargarabonado"
+    "PagarPasarela"
   ]
 }

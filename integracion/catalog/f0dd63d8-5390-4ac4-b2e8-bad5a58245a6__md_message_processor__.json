@@ -1,0 +1,13 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {}
+    },
+    "outputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "jsonpasarela"
+        }
+    },
+    "id": "f0dd63d8-5390-4ac4-b2e8-bad5a58245a6",
+    "version": "5.2.0.0"
+}

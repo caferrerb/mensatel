@@ -11,13 +11,13 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
     <flow name="procedimientoagregarservicioFlow">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/procedimientos/agregarservicio" allowedMethods="POST" doc:name="HTTP"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/procedimientos/agregarservicio" allowedMethods="POST" doc:name="End point agregarservicio"/>
         <json:validate-schema schemaLocation="jsonAgregarservicio.json" doc:name="Validacion esquema JSON"/>
         <json:json-to-object-transformer returnClass="java.util.HashMap" encoding="UTF-8" doc:name="JSON a objeto"/>
         <validation:all doc:name="Validacion de campos">
             <validation:validations>
-                <validation:is-number value="#[payload.Agregarservicio.codigoabonado]" numberType="INTEGER" message="#['El codigo del abonado es incorrecto']"/>
                 <validation:is-number value="#[payload.Agregarservicio.codigoservicio]" numberType="INTEGER" message="#['El codigo del servicio es incorrecto']"/>
+                <validation:is-number value="#[payload.Agregarservicio.numeroabonado]" numberType="LONG" message="#['El numero del abonado es incorrecto']"/>
             </validation:validations>
         </validation:all>
         <db:stored-procedure config-ref="Oracle_Configuration" doc:name="Base de datos Mensatel">
@@ -25,12 +25,21 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 								   :P_ID_SERVICIO,
 								   :COD_RESP,
 								   :MSJ)}]]></db:parameterized-query>
-            <db:in-param name="P_ABONADO" type="NUMERIC" value="#[payload.Agregarservicio.codigoabonado]"/>
+            <db:in-param name="P_ABONADO" type="NUMERIC" value="#[payload.Agregarservicio.numeroabonado]"/>
             <db:in-param name="P_ID_SERVICIO" type="NUMERIC" value="#[payload.Agregarservicio.codigoservicio]"/>
             <db:out-param name="COD_RESP" type="VARCHAR"/>
             <db:out-param name="MSJ" type="VARCHAR"/>
         </db:stored-procedure>
         <json:object-to-json-transformer doc:name="Objeto a JSON"/>
+        <dw:transform-message doc:name="Respuesta">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	codigo:payload.COD_RESP,
+	respuesta:payload.MSJ
+}]]></dw:set-payload>
+        </dw:transform-message>
         <choice-exception-strategy doc:name="Excepciones Capturadas">
             <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
                 <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
@@ -57,6 +66,20 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 		codigo:-2,
 		respuesta:payload.message
 	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(java.sql.SQLIntegrityConstraintViolationException)]" doc:name="Excepcion en consumo servicio">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	
+		codigo:"-3",
+		respuesta:"El servicio ya se encuentra contratado"
+	
 }]]></dw:set-payload>
                 </dw:transform-message>
             </catch-exception-strategy>

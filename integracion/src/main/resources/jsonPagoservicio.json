@@ -2,16 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "Recargarabonado": {
+    "Pagoservicio": {
       "type": "object",
       "properties": {
         "numero": {
           "type": "string"
         },
-        "plan": {
-          "type": "string"
-        },
-        "monto": {
+        "idservicio": {
           "type": "string"
         },
         "numTarjeta": {
@@ -26,8 +23,7 @@
       },
       "required": [
         "numero",
-        "plan",
-        "monto",
+        "idservicio",
         "numTarjeta",
         "codigoseguridad",
         "fechaex"
@@ -35,6 +31,6 @@
     }
   },
   "required": [
-    "Recargarabonado"
+    "Pagoservicio"
   ]
 }

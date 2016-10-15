@@ -2,23 +2,19 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "Agregarservicio": {
+    "device": {
       "type": "object",
       "properties": {
-        "numeroabonado": {
-          "type": "string"
-        },
-        "codigoservicio": {
+        "abonado": {
           "type": "string"
         }
       },
       "required": [
-        "numeroabonado",
-        "codigoservicio"
+        "abonado"
       ]
     }
   },
   "required": [
-    "Agregarservicio"
+    "device"
   ]
 }
