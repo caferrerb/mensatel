@@ -20,19 +20,22 @@ and open the template in the editor.
             <p:panel header="ABONOS">
                 <p:panelGrid columns="4">
                     <p:outputLabel>Numero</p:outputLabel>
-                    <p:inputText id="tfNumero" required="true" value="" />
+                    <p:inputText id="tfNumero" required="true" value="#{abonadosBean.numero}" />
                     <p:outputLabel>Documento</p:outputLabel>
-                    <p:inputText id="tfDocumento" required="true" value="" />
+                    <p:inputText id="tfDocumento" required="true" value="#{abonadosBean.documento}" />
                     <p:outputLabel>Tipo Documento</p:outputLabel>
-                    <p:selectOneMenu required="true" value="" id="cbxTipoDoc" style="width:75%">
-                        <f:selectItems value="111"/>
-                        <f:selectItems value="222" var="niveles" itemValue="" itemLabel="" />
+                    <p:selectOneMenu required="true" value="#{abonadosBean.tipodoc}" id="cbxTipoDoc" style="width:75%">
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItem itemLabel="CEDULA" itemValue="CEDULA" />
+            <f:selectItem itemLabel="TI" itemValue="TI" />
+            <f:selectItem itemLabel="CEDULA EXTRANJERA" itemValue="CEDULA EXTRANJERA" />
+             <f:selectItem itemLabel="NIT" itemValue="NIT" />
                     </p:selectOneMenu>
                 </p:panelGrid>
             </p:panel>           
             <br/>
-            <p:commandButton value="Guardar" action="Guardar" immediate="true"/>
-            <p:commandButton value="menu que no funciona" action="/faces/menu.xhtml"  />
+            <p:commandButton value="Guardar" action="#{abonadosBean.mostrar()}" update="@form"/>
+            <p:commandButton value="menu que no funciona" action="menu"    immediate="true" />
         </h:form>
     </h:body>
 </html>
