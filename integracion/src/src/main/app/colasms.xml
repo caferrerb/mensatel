@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+    <http:request-config name="HTTP_Request_ConfigurationSMS" host="api.contactomasivo.com" port="80" doc:name="HTTP Request Configuration"/>
+    <flow name="notificacionsmsFlow">
+        <jms:inbound-endpoint queue="${jm.colaSms}" connector-ref="Active_MQ" doc:name="Cola Sms"/>
+        <json:validate-schema schemaLocation="jsonSms.json" doc:name="Validacion del esquema JSON"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON a Objeto"/>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:is-not-empty value="#[payload.sms.mensaje]" message="#['El mensaje no puede estar vacio']"/>
+                <validation:is-not-empty value="#[payload.sms.asunto]" message="#['EL asunto no puede ir vacio']"/>
+                <validation:matches-regex value="#[payload.sms.numeroabonado]" regex="[0-9]{10}" message="#['El numero del abonado es invalido']"/>
+            </validation:validations>
+        </validation:all>
+        <set-variable variableName="mensaje" value="#[payload]" encoding="UTF-8" doc:name="Variable mensaje"/>
+        <dw:transform-message metadata:id="afba08d7-a356-46b7-8fcf-8c2ec5838504" doc:name="Transformador consumo servicio">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	authentication: {
+		username:"cafb",
+		password: "5M52016EAM"
+	},
+	messages: [{
+		sender: flowVars.mensaje.sms.asunto,
+		text: flowVars.mensaje.sms.mensaje,
+		recipients: [{
+			gsm: "57$(flowVars.mensaje.sms.numeroabonado)"
+		}]
+	}]
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <http:request config-ref="HTTP_Request_ConfigurationSMS" path="/api/v3/sendsms/json" method="POST" doc:name="Consumo de servicio envio mensajes "/>
+        <set-payload value="#[payload]" encoding="UTF-8" mimeType="application/json" doc:name="Set Payload"/>
+        <choice-exception-strategy doc:name="Excepciones Capturadas">
+            <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-1,
+		respuesta:'Error estructura json'
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(org.mule.extension.validation.api.MultipleValidationException)]" doc:name="Excepcion en los validadores">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-2,
+		respuesta:payload.message
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+        </choice-exception-strategy>
+    </flow>
+</mule>

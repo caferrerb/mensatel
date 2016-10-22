@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+    <ws:consumer-config name="Web_Service_Consumer1" service="MensajeBOService" port="teletrimWSPort" serviceAddress="http://174.142.65.144:47210/Teletrim/teletrimWS" wsdlLocation="http://174.142.65.144:47210/Teletrim/teletrimWS?wsdl" doc:name="Web Service Consumer"/>
+    <ws:consumer-config name="Web_Service_Teletrim" service="MensajeBOService" port="teletrimWSPort" serviceAddress="http://174.142.65.144:47210/Teletrim/teletrimWS" wsdlLocation="http://174.142.65.144:47210/Teletrim/teletrimWS?wsdl" doc:name="Web Service Consumer"/>
+    <flow name="teletrimFlow">
+        <jms:inbound-endpoint queue="ColaTeletrim" connector-ref="Active_MQ" doc:name="Cola operador Teletrim"/>
+        <set-variable variableName="mensaje" value="#[payload]" encoding="UTF-8" mimeType="application/xml" doc:name="Variable"/>
+        <dw:transform-message metadata:id="5e31acca-f2d1-48b7-a033-e4122e4ac236" doc:name="Tranformador mensaje Teletrim">
+            <dw:input-payload/>
+            <dw:input-variable variableName="mensaje"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://bo.eam.edu.com/
+---
+{
+	ns0#enviarmsjabonado: {
+		numeroAbonado: flowVars.mensaje.mensajeT.abonadoorigen,
+		mensaje: {
+			abonadodestino: flowVars.mensaje.mensajeT.abonadodestino,
+			abonadoorigen: flowVars.mensaje.mensajeT.abonadoorigen,
+			mensaje: flowVars.mensaje.mensajeT.mensaje,
+			operadordestino: flowVars.mensaje.mensajeT.operadordestino,
+			operadororigen: flowVars.mensaje.mensajeT.operadororigen
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Teletrim" operation="enviarmsjabonado" doc:name="Servicio SOAP Teletrim"/>
+        <dw:transform-message metadata:id="f228fb65-dcee-48e5-a556-63de8d09f827" doc:name="Transformador mensaje salida">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://bo.eam.edu.com/
+---
+{
+	ns0#enviarmsjabonadoResponse: {
+		return: {
+			codigo: payload.ns0#enviarmsjabonadoResponse.return.codigo,
+			mensaje: payload.ns0#enviarmsjabonadoResponse.return.mensaje
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <object-to-string-transformer doc:name="Objeto a Cadena"/>
+        <set-payload value="#[payload]" doc:name="Respuesta Salida"/>
+    </flow>
+</mule>

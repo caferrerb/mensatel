@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "numerosms": {
+      "type": "integer"
+    },
+    "numeromails": {
+      "type": "integer"
+    },
+    "numeromsjs": {
+      "type": "integer"
+    },
+    "numeropush": {
+      "type": "integer"
+    },
+    "valorplan": {
+      "type": "number"
+    },
+    "idplan": {
+      "type": "integer"
+    },
+    "nombre": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "numerosms",
+    "numeromails",
+    "numeromsjs",
+    "numeropush",
+    "valorplan",
+    "idplan",
+    "nombre"
+  ]
+}

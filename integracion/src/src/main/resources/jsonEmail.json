@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "object",
+      "properties": {
+        "numeroabonado": {
+          "type": "string"
+        },
+        "asunto": {
+          "type": "string"
+        },
+        "mensaje": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numeroabonado",
+        "asunto",
+        "mensaje"
+      ]
+    }
+  },
+  "required": [
+    "email"
+  ]
+}

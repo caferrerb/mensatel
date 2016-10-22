@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd">
+    <flow name="dardebajaFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/portabilidadnumerica/dardebaja" allowedMethods="POST" doc:name="HTTP"/>
+        <json:validate-schema schemaLocation="jsonDarBaja.json" doc:name="Validacion de la estructura JSON"/>
+        <json:json-to-xml-transformer doc:name="Conversion JSON a XML"/>
+        <object-to-string-transformer doc:name="Conversion Objecto a Cadena"/>
+        <set-variable variableName="DarDeBaja" value="#[payload]" encoding="UTF-8" mimeType="application/xml" doc:name="Variable Dar de Baja"/>
+        <dw:transform-message metadata:id="2271f72f-b1c1-4d23-9e67-9fa4becc660d" doc:name="Transform Message">
+            <dw:input-variable variableName="DarDeBaja"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	id:payload.DarDeBaja.idtransaccion,
+	num:payload.DarDeBaja.numeroabonado
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:is-not-empty value="#[payload.id]" message="#['El id de transaccion no puede estar vacio']"/>
+                <validation:is-not-empty value="#[payload.num]" message="#['El numero del abonado no puede estar vacio']"/>
+                <validation:is-number value="#[payload.id]" numberType="INTEGER" message="#['El tipo de id transaccion no es valido']"/>
+                <validation:is-number value="#[payload.num]" numberType="LONG" message="#['El tipo de dato del numero del abonado es invalido']"/>
+            </validation:validations>
+        </validation:all>
+        <dw:transform-message doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%namespace ns0 http://operaciones.eam.edu.co/
+---
+{
+	ns0#DarDeBaja: {
+		idTransaccion: payload.id,
+		numeroAbonado: payload.num
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <ws:consumer config-ref="Web_Service_Consumer" operation="DarDeBaja" doc:name="Consumo servicio SOAP Dar de Baja"/>
+        <dw:transform-message metadata:id="90be242c-ce98-4d14-af29-46b955190957" doc:name="Transform Message">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+%namespace ns0 http://operaciones.eam.edu.co/
+---
+{
+	ns0#DarDeBajaResponse: {
+		return: {
+			codigo: payload.ns0#DarDeBajaResponse.return.codigo,
+			idTransaccion: payload.ns0#DarDeBajaResponse.return.idTransaccion,
+			mensaje: payload.ns0#DarDeBajaResponse.return.mensaje
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <set-payload value="#[payload]" doc:name="Respuesta Salida" encoding="UTF-8"/>
+        <logger level="INFO" doc:name="Logger"/>
+        <choice-exception-strategy doc:name="Choice Exception Strategy">
+            <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-1,
+		respuesta:'Error estructura json'
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(org.mule.extension.validation.api.MultipleValidationException)]" doc:name="Excepcion en los validadores">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-2,
+		respuesta:payload.message
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+        </choice-exception-strategy>
+    </flow>
+</mule>

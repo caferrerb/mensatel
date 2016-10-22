@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Recargarabonado": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "plan": {
+          "type": "string"
+        },
+        "monto": {
+          "type": "string"
+        },
+        "numTarjeta": {
+          "type": "string"
+        },
+        "codigoseguridad": {
+          "type": "string"
+        },
+        "fechaex": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero",
+        "plan",
+        "monto",
+        "numTarjeta",
+        "codigoseguridad",
+        "fechaex"
+      ]
+    }
+  },
+  "required": [
+    "Recargarabonado"
+  ]
+}

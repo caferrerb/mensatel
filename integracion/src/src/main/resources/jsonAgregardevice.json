@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Agregardevice": {
+      "type": "object",
+      "properties": {
+        "abonado": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "abonado",
+        "device"
+      ]
+    }
+  },
+  "required": [
+    "Agregardevice"
+  ]
+}

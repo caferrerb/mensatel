@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Pagoservicio": {
+      "type": "object",
+      "properties": {
+        "numero": {
+          "type": "string"
+        },
+        "idservicio": {
+          "type": "string"
+        },
+        "numTarjeta": {
+          "type": "string"
+        },
+        "codigoseguridad": {
+          "type": "string"
+        },
+        "fechaex": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numero",
+        "idservicio",
+        "numTarjeta",
+        "codigoseguridad",
+        "fechaex"
+      ]
+    }
+  },
+  "required": [
+    "Pagoservicio"
+  ]
+}
