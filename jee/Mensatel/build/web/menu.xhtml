@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Mensatel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <h:form>  
+            <p:growl autoUpdate="true"/>
+            <p:panelMenu style="width:300px">
+                <p:submenu label="ABONADOS">
+                    <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/abonados.xhtml"/>    
+                </p:submenu>               
+            </p:panelMenu>    
+            <p:panelMenu style="width:300px">
+                <p:submenu label="SUSCRIPCIONES">
+                    <p:menuitem value="Eliminar" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>    
+                </p:submenu>               
+            </p:panelMenu>  
+            <p:panelMenu style="width:300px">
+                <p:submenu label="PAGOS">
+                    <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" />
+                    <p:menuitem value="Modificar" actionListener="#{menuView.save}" icon="ui-icon-pencil" />    
+                </p:submenu>               
+            </p:panelMenu> 
+            <p:panelMenu style="width:300px">
+                <p:submenu label="PLANES">
+                    <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" />
+                    <p:menuitem value="Buscar" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" /> 
+                    <p:menuitem value="Modificar" actionListener="#{menuView.save}" icon="ui-icon-pencil" />
+                    <p:menuitem value="Eliminar" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>  
+                </p:submenu>               
+            </p:panelMenu> 
+            <br/>
+        </h:form>
+    </h:body>
+</html>

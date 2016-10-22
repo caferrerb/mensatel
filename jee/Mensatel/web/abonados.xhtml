@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Abonados</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <h:form>  
+            <p:panel header="ABONOS">
+                <p:panelGrid columns="4">
+                    <p:outputLabel>Numero</p:outputLabel>
+                    <p:inputText id="tfNumero" required="true" value="" />
+                    <p:outputLabel>Documento</p:outputLabel>
+                    <p:inputText id="tfDocumento" required="true" value="" />
+                    <p:outputLabel>Tipo Documento</p:outputLabel>
+                    <p:selectOneMenu required="true" value="" id="cbxTipoDoc" style="width:75%">
+                        <f:selectItems value="111"/>
+                        <f:selectItems value="222" var="niveles" itemValue="" itemLabel="" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:panel>           
+            <br/>
+            <p:commandButton value="Guardar" action="Guardar" immediate="true"/>
+            <p:commandButton value="menu" action="/faces/menu.xhtml"  />
+        </h:form>
+    </h:body>
+</html>
