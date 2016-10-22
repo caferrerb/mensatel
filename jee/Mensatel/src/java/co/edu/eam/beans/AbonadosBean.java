@@ -5,10 +5,22 @@
  */
 package co.edu.eam.beans;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
+
 /**
  *
  * @author GERMAN
  */
+
+
+@ManagedBean
+@Named(value = "abonadoBean")
+@ViewScoped
 public class AbonadosBean {
+    
+    
+    
     
 }
