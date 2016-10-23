@@ -45,10 +45,7 @@ public function __construct()
                                       'json' //mimetype a enviar
                                      ); 
 
-        echo "<pre>";
-        print_r($response);
-        echo "</pre>";
-        die(__FILE__ . ' - In line - ' . __LINE__);
+        echo json_encode($response);
 
     }
 }

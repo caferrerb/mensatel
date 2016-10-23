@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ngNotify']);
 
 // app.config(function($routeProvider){
 //     $routeProvider
@@ -67,11 +67,16 @@ app.service(
             // nomralized format. However, if the request was not handled by the
             // server (or what not handles properly - ex. server error), then we
             // may have to normalize it on our end, as best we can.
+            //console.log(response);
+
+            if(response.status != 200){
+                return( $q.reject( "Error de conexión. Error "+response.status+". "+response.statusText ) );
+            }
             if (
                 ! angular.isObject( response.data ) ||
                 ! response.data.message
                 ) {
-                return( $q.reject( "An unknown error occurred." ) );
+                return( $q.reject( "Un error desconocido ha sucedido." ) );
             }
             // Otherwise, use expected error message.
             return( $q.reject( response.data.message ) );
