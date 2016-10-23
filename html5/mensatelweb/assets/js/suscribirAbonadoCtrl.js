@@ -1,16 +1,17 @@
 app.controller('suscribirAbonadoCtrl', function($scope, $http, sendService ) {
 
 	$scope.push = [];
-	var uriCtrl = 'suscribirAbonado/'
+    $scope.respuestaSuscripcion = [];
+	var uriCtrl = 'suscribirAbonado/'    
 
-	$scope.sendMessage = function(){
+    $scope.suscribirAbonado = function(numero, doc, tipodoc){
 
-		var data = {'mensaje':'Envio desde Angular.JS'};
+        var data = {'numero':numero, 'doc':doc, 'tipodoc':tipodoc};
 
-		sendService.get(uriCtrl+'web', data)
+        sendService.get(uriCtrl+'suscribirAbonado', data)
             .then(
-                function( friends ) {
-                    $scope.push = friends;
+                function( response ) {
+                    $scope.respuestaSuscripcion = response;
                 },
 
                 function( errorMessage ) {
@@ -18,21 +19,6 @@ app.controller('suscribirAbonadoCtrl', function($scope, $http, sendService ) {
                 }
             );
 
-	}
-
-	$scope.sendMessagePost = function(){
-
-		sendService.post()
-            .then(
-                function( friends ) {
-                    $scope.push = friends;
-                },
-
-                function( errorMessage ) {
-                    console.warn( errorMessage );
-                }
-            );
-
-	}
+    }
 
 });

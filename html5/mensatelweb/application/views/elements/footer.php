@@ -12,7 +12,10 @@
 		'app.js',
 		'recargarCtrl.js',
 		'enviarMensajeCtrl.js',
-		'suscribirAbonadoCtrl.js'
+		'suscribirAbonadoCtrl.js',
+		'registrarUsuarioCtrl.js',
+		'comprarServicioSuplementarioCtrl.js',
+		'desvincularAbonadoCtrl.js'
 		);
 
 	echo add_js($js);

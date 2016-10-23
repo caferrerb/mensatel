@@ -27,28 +27,29 @@ $this->view('elements/header'); ?>
 					      <fieldset>					
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado origen</label>
-								<input class="form-control" name="abonadoorigen" id="abonadoorigen" type="number" required>
+								<input class="form-control" name="abonadoorigen" id="abonadoorigen" type="number" required ng-model="abonadoorigen">
 								<p class="help-block">Número abonado origen</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado destino</label>
-								<input class="form-control" name="abonadodestino" id="abonadodestino" type="number" required>
+								<input class="form-control" name="abonadodestino" id="abonadodestino" type="number" required ng-model="abonadodestino">
 								<p class="help-block">Número abonado destino</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Mensaje</label>
-								<input class="form-control" name="mensaje" id="mensaje" type="number" required>
+								<input class="form-control" name="mensaje" id="mensaje" type="text" required ng-model="mensaje">
 								<p class="help-block">Mensaje</p>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">Enviar mensaje	</button>
+								<button type="submit" class="btn btn-primary" ng-click="enviarMensaje(abonadoorigen, abonadodestino, mensaje)">Enviar mensaje </button>
 							</div>					
 
 						  </fieldset>
 					</form>
+					{{respuestaMensaje}}
 				</div>
 
 			</div>

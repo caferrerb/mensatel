@@ -1,46 +1,18 @@
 app.controller('enviarMensajeCtrl', function($scope, $http, sendService ) {
 
 	$scope.push = [];
+    $scope.respuestaMensaje = [];
 	var uriCtrl = 'enviarMensaje/'
 
-	$scope.sendMessage = function(){
+    $scope.enviarMensaje = function(abonadoorigen, abonadodestino, mensaje){
 
-		var data = {'mensaje':'Envio desde Angular.JS'};
+        var data = {'abonadoorigen':abonadoorigen,
+        'abonadodestino':abonadodestino, 'mensaje':mensaje};
 
-		sendService.get(uriCtrl+'web', data)
+        sendService.get(uriCtrl+'enviarMensaje', data)
             .then(
-                function( friends ) {
-                    $scope.push = friends;
-                },
-
-                function( errorMessage ) {
-                    console.warn( errorMessage );
-                }
-            );
-
-	}
-
-	$scope.sendMessagePost = function(){
-
-		sendService.post()
-            .then(
-                function( friends ) {
-                    $scope.push = friends;
-                },
-
-                function( errorMessage ) {
-                    console.warn( errorMessage );
-                }
-            );
-
-	}
-
-    $scope.sendMessagePost = function(){
-
-        sendService.post()
-            .then(
-                function( friends ) {
-                    $scope.push = friends;
+                function( response ) {
+                    $scope.respuestaMensaje = response;
                 },
 
                 function( errorMessage ) {

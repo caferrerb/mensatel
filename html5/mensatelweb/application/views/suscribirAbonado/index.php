@@ -27,28 +27,29 @@ $this->view('elements/header'); ?>
 					      <fieldset>					
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado</label>
-								<input class="form-control" name="numero" id="numero" type="number" required>
+								<input class="form-control" name="numero" id="numero" type="number" required ng-model="numero">
 								<p class="help-block">Número abonado</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Documento</label>
-								<input class="form-control" name="documento" id="documento" type="text" required>
+								<input class="form-control" name="documento" id="documento" type="text" required ng-model="documento">
 								<p class="help-block">Documento</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Tipo documento</label>
-								<input class="form-control" name="tipodoc" id="tipodoc" type="number" required>
+								<input class="form-control" name="tipodoc" id="tipodoc" type="text" required ng-model="tipodoc">
 								<p class="help-block">Tipo documento</p>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary">Registrar</button>
+								<button type="submit" class="btn btn-primary" ng-click="suscribirAbonado(numero, documento, tipodoc)">Registrar</button>
 							</div>					
 
 						  </fieldset>
 					</form>
+					{{respuestaSuscripcion}}
 				</div>
 
 			</div>

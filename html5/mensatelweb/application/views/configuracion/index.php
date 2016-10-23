@@ -57,6 +57,32 @@ $this->view('elements/header'); ?>
 					  <p class="help-block">Endpoint para suscribir abonado</p>
 					</div>
 
+
+					<div class="form-group label-floating">
+					  <label class="control-label" for="focusedInput2">Uri Comprar servicio suplementario</label>
+					  <input class="form-control" name="path_comprar_servicio_suplementario" id="focusedInput2" type="text" required value="<?php echo $data->path_comprar_servicio_suplementario ?>">
+					  <p class="help-block">Endpoint para comprar servicio suplementario</p>
+					</div>
+
+
+					<div class="form-group label-floating">
+					  <label class="control-label" for="focusedInput2">Uri Cancelar servicio suplementario</label>
+					  <input class="form-control" name="path_cancelar_servicio_suplementario" id="focusedInput2" type="text" required value="<?php echo $data->path_cancelar_servicio_suplementario ?>">
+					  <p class="help-block">Endpoint para cancelar servicio suplementario</p>
+					</div>
+
+					<div class="form-group label-floating">
+					  <label class="control-label" for="focusedInput2">Uri Cancelar suscripción</label>
+					  <input class="form-control" name="path_cancelar_suscripcion" id="focusedInput2" type="text" required value="<?php echo $data->path_cancelar_suscripcion ?>">
+					  <p class="help-block">Endpoint para cancelar suscripción</p>
+					</div>
+
+					<div class="form-group label-floating">
+					  <label class="control-label" for="focusedInput2">Uri Registrar usuario</label>
+					  <input class="form-control" name="path_registrar_usuario" id="focusedInput2" type="text" required value="<?php echo $data->path_registrar_usuario ?>">
+					  <p class="help-block">Endpoint para registrar usuario</p>
+					</div>
+
 					<input type="hidden" name="id" value="<?php echo $data->id ?>">
 				    
 				    <div class="form-group">
