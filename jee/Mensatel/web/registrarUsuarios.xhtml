@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuarios</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <h:form>  
+               <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <p:panel header="ABONOS">
+                <p:panelGrid columns="4">
+                    <p:outputLabel>Nombre</p:outputLabel>
+                    <p:inputText id="tfNombre" required="true" value="#{usuariosBean.nombre}" />
+                    <p:outputLabel>Apellido</p:outputLabel>
+                    <p:inputText id="tfapellido" required="true" value="#{usuariosBean.apellido}" />
+                    <p:outputLabel>Ciudad</p:outputLabel>
+                    <p:selectOneMenu required="true" value="#{usuariosBean.ciudad}" id="cbxciudad" style="width:100%">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItem itemLabel="Armenia" itemValue="1" />
+            <f:selectItem itemLabel="Bogota" itemValue="2" />
+             <f:selectItem itemLabel="Cali" itemValue="3" />
+            <f:selectItem itemLabel="Medellin" itemValue="4" />         
+         
+                    </p:selectOneMenu>
+                     <p:outputLabel>Correo</p:outputLabel>
+                     <p:inputText id="Correo" required="true" value="#{usuariosBean.correo}" />
+                      <p:outputLabel>Documento</p:outputLabel>
+                      <p:inputText id="documento" required="true" value="#{usuariosBean.doc}" />
+                     
+                      <p:outputLabel>Tipo Documento</p:outputLabel>              
+                      <p:selectOneMenu required="true" value="#{usuariosBean.tipodoc}" id="cbxTipoDoc" style="width:100%">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItem itemLabel="CEDULA" itemValue="CEDULA" />
+            <f:selectItem itemLabel="TI" itemValue="TI" />
+            <f:selectItem itemLabel="CEDULA EXTRANJERA" itemValue="CEDULA EXTRANJERA" />
+             <f:selectItem itemLabel="NIT" itemValue="NIT" />
+                    </p:selectOneMenu>
+                </p:panelGrid>
+            </p:panel>           
+            <br/>
+            <p:commandButton value="Guardar" action="#{usuariosBean.enviarUsuario()}" update="@form"/>
+            <p:commandButton value="Volver a Menu" action="menu"    immediate="true" />
+        </h:form>
+    </h:body>
+</html>

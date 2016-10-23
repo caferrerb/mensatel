@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuarios</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <h:form>  
+            <p:growl id="msgs" showDetail="true" />
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <p:panel header="RecargaAbonado">
+                <p:panelGrid columns="1">
+                    <p:panel header="Datos">
+                        
+                        
+                        <p:panelGrid  columns="6">
+                            
+                            
+                              <p:outputLabel style="width:100%">Numero</p:outputLabel>
+                    <p:inputText id="tfNumero" required="true" value="#{recargaAbonadoBean.numero}" />
+                    <p:outputLabel style="width:100%">Plan</p:outputLabel>
+                    <p:inputText id="tfplan" required="true" value="#{recargaAbonadoBean.plan}" />
+
+                    <p:outputLabel style="width:100%">Monto</p:outputLabel>
+                    <p:inputText id="tfMonto" required="true" value="#{recargaAbonadoBean.monto}" />
+                        </p:panelGrid>
+                    </p:panel>
+                        
+                    
+                  
+
+
+
+                    
+                    <p:panel header="Datos Tarjeta">
+                    <p:panelGrid  columns="4">
+                        
+                    <p:outputLabel>Numero Tarjeta</p:outputLabel>
+                    <p:inputText id="numTarj" required="true" value="#{recargaAbonadoBean.numTarjeta}" />
+                    <p:outputLabel>Cod Seguridad</p:outputLabel>
+                    <p:inputText id="codSeg" required="true" value="#{recargaAbonadoBean.codigoSeguridad}" />
+                        
+                          <p:outputLabel>Año Exp </p:outputLabel>
+         <p:selectOneMenu required="true" value="#{recargaAbonadoBean.año}" id="cbxaños" style="width:100%">
+                  <f:selectItem itemLabel="Selecione año" itemValue="" />
+            <f:selectItem itemLabel="2016" itemValue="2016" />
+            <f:selectItem itemLabel="2017" itemValue="2017" />
+             <f:selectItem itemLabel="2018" itemValue="2018" />
+            <f:selectItem itemLabel="2019" itemValue="2019" />  
+              </p:selectOneMenu>
+              <p:outputLabel>Mes Exp</p:outputLabel>
+      
+                <p:selectOneMenu required="true" value="#{recargaAbonadoBean.mes}" id="cbxmes" style="width:100%">
+      <f:selectItem itemLabel="Selecione Mes" itemValue="" />
+  <f:selectItem itemLabel="Enero" itemValue="01" />  
+            <f:selectItem itemLabel="Febrero" itemValue="02" />
+             <f:selectItem itemLabel="Marzo" itemValue="03" />
+            <f:selectItem itemLabel="Abril" itemValue="04" />  
+            <f:selectItem itemLabel="Mayo" itemValue="05" />
+             <f:selectItem itemLabel="Junio" itemValue="06"/>
+            <f:selectItem itemLabel="Julio" itemValue="07" />  
+            <f:selectItem itemLabel="Agosto" itemValue="08" />
+             <f:selectItem itemLabel="Septiembre" itemValue="09" />
+            <f:selectItem itemLabel="Octubre" itemValue="10" />  
+            <f:selectItem itemLabel="Nomviembre" itemValue="11" />
+             <f:selectItem itemLabel="Diciembre" itemValue="12" />
+           
+
+  </p:selectOneMenu>
+                  </p:panelGrid>
+                        </p:panel>
+       
+                </p:panelGrid>
+            </p:panel>           
+            <br/>
+            <p:commandButton value="Recargar" action="#{recargaAbonadoBean.enviardatos()}" update="@form"/>
+            <p:commandButton value="Volver a Menu" action="menu"    immediate="true" />
+        </h:form>
+    </h:body>
+</html>

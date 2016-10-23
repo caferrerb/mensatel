@@ -19,8 +19,10 @@ and open the template in the editor.
         <h:form>  
             <p:growl autoUpdate="true"/>
             <p:panelMenu style="width:300px">
-                <p:submenu label="ABONADOS">
-                    <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/registrarAbonados.xhtml"/>    
+                <p:submenu label="GESTION">
+                    <p:menuitem value="Registrar Usuario" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/registrarUsuarios.xhtml"/>    
+
+                    <p:menuitem value="Registrar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/registrarAbonados.xhtml"/>    
                 </p:submenu>               
             </p:panelMenu>    
             <p:panelMenu style="width:300px">
@@ -30,7 +32,7 @@ and open the template in the editor.
             </p:panelMenu>  
             <p:panelMenu style="width:300px">
                 <p:submenu label="PAGOS">
-                    <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" />
+                    <p:menuitem value="Recargar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/recargarAbonado.xhtml" />
                     <p:menuitem value="Modificar" actionListener="#{menuView.save}" icon="ui-icon-pencil" />    
                 </p:submenu>               
             </p:panelMenu> 
