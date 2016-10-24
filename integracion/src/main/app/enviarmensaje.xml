@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/cu
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
-    <jms:activemq-connector name="Active_MQ" username="${jm.aquser}" password="${jm.aqpassword}" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <jms:activemq-connector name="Active_MQ" username="${jm.aquser}" password="${jm.aqpassword}" brokerURL="tcp://${jm.aqhost}:${jm.aqport}" validateConnections="true" doc:name="Active MQ"/>
     <http:request-config name="HTTP_Request_Configuration" doc:name="HTTP Request Configuration"/>
     <flow name="enviarmensajeFlow">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/enviarmsj" doc:name="End point servicio envio msj"/>
