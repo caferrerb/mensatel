@@ -49,7 +49,6 @@ $this->view('elements/header'); ?>
 
 						  </fieldset>
 					</form>
-					{{respuestaMensaje}}
 				</div>
 
 			</div>

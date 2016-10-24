@@ -16,7 +16,8 @@
 		$css = array(
 			'bootstrap.min.css',
 			'bootstrap-material-design.min.css',
-			'ripples.min.css'
+			'ripples.min.css',
+			'ng-notify.css'
 			);
 	 ?>
   	
@@ -48,7 +49,7 @@
 		        <li><a href="<?= site_url('registrarUsuario') ?>">Registrar usuario</a></li>
 		        <li><a href="<?= site_url('comprarServicioSuplementario') ?>">Comprar servicio suplementario</a></li>
 		        <li><a href="<?= site_url('desvincularAbonado') ?>">Desvincular abonado</a></li> 
-		        <li><a href="<?= site_url('configuracion') ?>">Configuración</a></li>
+		        
 		      </ul>
 		      
 		      <ul class="nav navbar-nav navbar-right">
@@ -56,7 +57,7 @@
 		          <a href="" data-target="#" class="dropdown-toggle" data-toggle="dropdown"><i class="material-icons">more_vert</i>
 		            </a>
 		          <ul class="dropdown-menu">
-		            <li><a href="javascript:void(0)">Action</a></li>
+		            <li><a href="<?= site_url('configuracion') ?>">Configuración</a></li>
 		            <li class="divider"></li>
 		            <li><a href="javascript:void(0)"><i class="material-icons">cancel</i> Cerrar Sesión</a></li>
 		          </ul>

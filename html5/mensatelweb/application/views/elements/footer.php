@@ -9,6 +9,7 @@
 		'ripples.min.js',
 		'angular.min.js',
 		'angular-route.min.js',
+		'ng-notify.js',
 		'app.js',
 		'recargarCtrl.js',
 		'enviarMensajeCtrl.js',
