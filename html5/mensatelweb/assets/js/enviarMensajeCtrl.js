@@ -4,21 +4,18 @@ app.controller('enviarMensajeCtrl', function($scope, $http, sendService, ngNotif
     $scope.respuestaMensaje = [];
 	var uriCtrl = 'enviarMensaje/'
 
-    $scope.enviarMensaje = function(abonadoorigen, abonadodestino, mensaje){
+    $scope.enviarMensaje = function(formData, isValid){
+
 
         ngNotify.set('Enviando solicitud...', {
             sticky: true
         });
 
-        var data = {'abonadoorigen':abonadoorigen,
-        'abonadodestino':abonadodestino, 'mensaje':mensaje};
-
-        sendService.get(uriCtrl+'enviarMensaje', data)
+        sendService.get(uriCtrl+'enviarMensaje', formData)
             .then(
 
                 function( response ) {
                     ngNotify.dismiss();
-                    //$scope.respuestaMensaje = response;
 
                     if(response.respuesta.codigo == -1){
                         ngNotify.set(response.respuesta.respuesta, 'error');

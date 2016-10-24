@@ -23,28 +23,30 @@ $this->view('elements/header'); ?>
 
 
 				<div class="col-md-6 col-md-offset-3">
-				      <form>
+				      <form name="frmEnviarMensaje" ng-submit="enviarMensaje( formData, formData.$valid )">
 					      <fieldset>					
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado origen</label>
-								<input class="form-control" name="abonadoorigen" id="abonadoorigen" type="number" required ng-model="abonadoorigen">
-								<p class="help-block">Número abonado origen</p>
+								<input class="form-control" name="abonadoorigen" id="abonadoorigen" type="number" required ng-model="formData.abonadoorigen">
+								<p ng-show="!frmEnviarMensaje.$pristine && frmEnviarMensaje.abonadoorigen.$error.required" class="help-block">Número abonado origen es requerido</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado destino</label>
-								<input class="form-control" name="abonadodestino" id="abonadodestino" type="number" required ng-model="abonadodestino">
-								<p class="help-block">Número abonado destino</p>
+								<input class="form-control" name="abonadodestino" id="abonadodestino" type="number" required ng-model="formData.abonadodestino">
+								<p ng-show="!frmEnviarMensaje.$pristine && frmEnviarMensaje.abonadodestino.$error.required" class="help-block">Número abonado destino es requerido</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Mensaje</label>
-								<input class="form-control" name="mensaje" id="mensaje" type="text" required ng-model="mensaje">
-								<p class="help-block">Mensaje</p>
+								<input class="form-control" name="mensaje" id="mensaje" type="text" required ng-model="formData.mensaje">
+								<p ng-show="!frmEnviarMensaje.$pristine && frmEnviarMensaje.mensaje.$error.required" class="help-block">El mensaje es requerido</p>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" ng-click="enviarMensaje(abonadoorigen, abonadodestino, mensaje)">Enviar mensaje </button>
+								<button type="submit" class="btn btn-primary" ng-disabled="!frmEnviarMensaje.$valid">
+									Enviar mensaje 
+								</button>
 							</div>					
 
 						  </fieldset>

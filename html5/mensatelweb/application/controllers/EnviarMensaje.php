@@ -28,16 +28,8 @@ public function __construct()
 
     public function enviarMensaje(){
 
-        $abonadorigen = $this->input->get('abonadoorigen');
-        $abonadodestino = $this->input->get('abonadodestino');
-        $mensaje = $this->input->get('mensaje');
-
         $params = array(
-            'Enviarmsj' => array(
-                'abonadoorigen' => $abonadorigen,
-                'abonadodestino' => $abonadodestino,
-                'mensaje' => $mensaje
-                )
+            'Enviarmsj' => $this->input->get()
         );
 
         $response = $this->rest->post($this->records->path_enviar_mensaje, //Uri del servicio

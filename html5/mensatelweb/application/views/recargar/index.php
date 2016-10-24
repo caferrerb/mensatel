@@ -23,52 +23,60 @@ $this->view('elements/header'); ?>
 
 
 				<div class="col-md-6 col-md-offset-3">
-				      <form>
+				      <form name="frmRecargar" novalidate ng-submit="recargar( recargarForm, recargarForm.$valid )">
 					      <fieldset>					
-							<div class="form-group label-floating">
+							<div class="form-group label-floating" ng-class="{ 'has-error' : frmRecargar.numero.$invalid && !frmRecargar.numero.$pristine }">
 								<label class="control-label" for="focusedInput2">Número abonado</label>
-								<input class="form-control" name="numero" id="numero" type="text" required ng-model="numero">
-								<p class="help-block">Número</p>
+								<input class="form-control" name="numero" id="numero" type="text" required ng-model="recargarForm.numero" ng-minlength="10" ng-maxlength="10">
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.numero.$error.required" class="help-block">Número abonado origen es requerido</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.numero.$error.minlength" class="help-block">Número mínimo de 10 digitos</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.numero.$error.maxlength" class="help-block">Número máximo de 10 digitos</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Plan</label>
-								<input class="form-control" name="plan" id="plan" type="number" required ng-model="plan">
-								<p class="help-block">Plan</p>
+								<!-- <input class="form-control" name="plan" id="plan" type="number" required ng-model="recargarForm.plan"> -->
+								<select name="plan" id="plan" class="form-control" required ng-model="recargarForm.plan">
+						          	<option value="1">Plus</option>
+							        <option value="2">Premium</option>
+						        </select>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.plan.$error.required" class="help-block">Plan es requerido</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Monto</label>
-								<input class="form-control" name="monto" id="monto" type="number" required ng-model="monto">
-								<p class="help-block">Monto</p>
+								<input class="form-control" name="monto" id="monto" type="number" required ng-model="recargarForm.monto">
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.monto.$error.required" class="help-block">Monto es requerido</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número tarjeta</label>
-								<input class="form-control" name="numTarjeta" id="numTarjeta" type="text" required ng-model="numTarjeta">
-								<p class="help-block">Número tarjeta</p>
+								<input class="form-control" name="numTarjeta" id="numTarjeta" type="text" required ng-model="recargarForm.numTarjeta" ng-minlength="16">
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.numTarjeta.$error.required" class="help-block">Número tarjeta es requerido</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.numTarjeta.$error.minlength" class="help-block">Número mínimo de 16 digitos</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Código seguridad</label>
-								<input class="form-control" name="codigoseguridad" id="codigoseguridad" type="number" required ng-model="codigoseguridad">
-								<p class="help-block">Código seguridad</p>
+								<input class="form-control" name="codigoseguridad" id="codigoseguridad" type="number" required ng-model="recargarForm.codigoseguridad" ng-maxlength="3" ng-minlength="3">
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.codigoseguridad.$error.required && !frmRecargar.codigoseguridad.$valid" class="help-block">Código de seguridad requerido</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.codigoseguridad.$error.minlength" class="help-block">Número mínimo de 3 digitos</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Fecha expiración</label>
-								<input class="form-control" name="fechaex" id="fechaex" type="text" required ng-model="fechaex">
-								<p class="help-block">Fecha expiración</p>
+								<input class="form-control" name="fechaex" id="fechaex" type="text" required ng-model="recargarForm.fechaex" ng-maxlength="7" ng-minlength="7">
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.fechaex.$error.required && !frmRecargar.fechaex.$valid" class="help-block">Fecha de expiración requerida</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.fechaex.$error.minlength" class="help-block">Mínimo 7 caracteres</p>
+								<p ng-show="!frmRecargar.$pristine && frmRecargar.fechaex.$error.maxlength" class="help-block">Máximo 7 caracteres</p>
 							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" ng-click="recargar(numero, plan, monto, numTarjeta, codigoseguridad, fechaex)">Recargar</button>
+								<button type="submit" class="btn btn-primary" ng-disabled="frmRecargar.$invalid" >Recargar</button>
 							</div>					
 
 						  </fieldset>
 					</form>
-
-					{{respuestaRecarga}}
 
 				</div>
 

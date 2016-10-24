@@ -1,40 +1,40 @@
-app.controller('recargarCtrl', function($scope, $http, sendService ) {
+app.controller('recargarCtrl', function($scope, $http, sendService, ngNotify ) {
 
 	$scope.push = [];
     $scope.respuestaRecarga = [];
 	var uriCtrl = 'recargar/'
 
-	$scope.sendMessage = function(){
 
-		var data = {'mensaje':'Envio desde Angular.JS'};
+    $scope.recargar = function(formData, isValid){
 
-		sendService.get(uriCtrl+'web', data)
-            .then(
-                function( friends ) {
-                    $scope.push = friends;
-                },
+        ngNotify.set('Enviando solicitud...', {
+            sticky: true
+        });
 
-                function( errorMessage ) {
-                    console.warn( errorMessage );
-                }
-            );
-
-	}
-
-    $scope.recargar = function(numero, plan, monto, numTarjeta, codigoseguridad, fechaex){
-
-        var data = {'numero':numero,
-        'plan':plan, 'monto':monto, 'numTarjeta':numTarjeta, 
-        'codigoseguridad': codigoseguridad, 'fechaex':fechaex};
-
-        sendService.get(uriCtrl+'recargar', data)
+        sendService.get(uriCtrl+'recargar', formData)
             .then(
                 function( response ) {
-                    $scope.respuestaRecarga = response;
+                    ngNotify.dismiss();
+
+                    if(response.codigo != undefined){
+
+                        if(response.codigo == 'COD-0000'){
+                            ngNotify.set(response.mensaje, 'success');
+                        }else{
+                            ngNotify.set(response.respuesta, 'error');   
+                        }
+                    }
+                    
+                    if(response.respuesta.codigo == 0){
+                        ngNotify.set(response.respuesta.respuesta, 'success');
+                    }else{
+                        ngNotify.set(response.respuesta.respuesta, 'error');
+                    }
                 },
 
                 function( errorMessage ) {
-                    console.warn( errorMessage );
+                    ngNotify.dismiss();
+                    ngNotify.set(errorMessage, 'error');
                 }
             );
 
