@@ -18,32 +18,30 @@ and open the template in the editor.
         <br/>
         <h:form>  
             <p:growl autoUpdate="true"/>
-            <p:panelMenu style="width:300px">
+            <p:menubar style="width:600px">
                 <p:submenu label="GESTION">
                     <p:menuitem value="Registrar Usuario" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/registrarUsuarios.xhtml"/>    
-
+                    <p:separator />
                     <p:menuitem value="Registrar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/registrarAbonados.xhtml"/>    
                 </p:submenu>               
-            </p:panelMenu>    
-            <p:panelMenu style="width:300px">
                 <p:submenu label="SUSCRIPCIONES">
-                    <p:menuitem value="Eliminar" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close" url="/faces/quitarPlan.xhtml"/>    
+                    <p:menuitem value="Cancelar Plan" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close" url="/faces/eliminarPlan.xhtml"/>    
                 </p:submenu>               
-            </p:panelMenu>  
-            <p:panelMenu style="width:300px">
                 <p:submenu label="PAGOS">
-                    <p:menuitem value="Recargar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/recargarAbonado.xhtml" />
-                    <p:menuitem value="Modificar" actionListener="#{menuView.save}" icon="ui-icon-pencil" />    
+                    <p:menuitem value="Recargar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/recargarAbonado.xhtml" />  
                 </p:submenu>               
-            </p:panelMenu> 
-            <p:panelMenu style="width:300px">
                 <p:submenu label="PLANES">
                     <p:menuitem value="Guardar" actionListener="#{menuView.save}" icon="ui-icon-disk" />
+                    <p:separator />
                     <p:menuitem value="Buscar" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" /> 
+                    <p:separator />
                     <p:menuitem value="Modificar" actionListener="#{menuView.save}" icon="ui-icon-pencil" />
+                    <p:separator />
                     <p:menuitem value="Eliminar" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>  
-                </p:submenu>               
-            </p:panelMenu> 
+                </p:submenu>   
+                
+                
+            </p:menubar> 
             <br/>
         </h:form>
     </h:body>

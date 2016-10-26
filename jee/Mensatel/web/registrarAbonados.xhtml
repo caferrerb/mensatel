@@ -18,7 +18,7 @@ and open the template in the editor.
         <br/>
         <h:form>  
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <p:panel header="ABONOS">
+            <p:panel header="REGISTRO DE ABONADOS" style="width:800px">
                 <p:panelGrid columns="4">
                     <p:outputLabel>Numero</p:outputLabel>
                     <p:inputText id="tfNumero" required="true" value="#{abonadosBean.numero}" />
@@ -35,8 +35,8 @@ and open the template in the editor.
                 </p:panelGrid>
             </p:panel>           
             <br/>
-            <p:commandButton value="Guardar" action="#{abonadosBean.enviar()}" update="@form"/>
-            <p:commandButton value="Volver a Menu" action="menu"    immediate="true" />
+            <p:commandButton value="REGISTRAR" action="#{abonadosBean.enviar()}" update="@form"/>
+            <p:commandButton value="VOLVER A MENU" action="menu"    immediate="true" />
         </h:form>
     </h:body>
 </html>
