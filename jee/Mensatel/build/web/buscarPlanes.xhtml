@@ -17,31 +17,33 @@ and open the template in the editor.
     <h:body>
         <br/>
         <h:form>  
+                           <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
             <p:panel header="BUSQUEDA DE PLANES" style="width:700px">
-                <p:inputText style="margin-right:20px" value="#{buscarPlanBean.idplan}" placeholder="Ingrese el codigo del plan"/>
-                <p:commandButton value="Buscar" action="#{registrarPlanBean.buscar()}" immediate="true"/>
+                <p:inputText style="margin-right:20px" value="#{gestionarPlanes.idplan}" placeholder="Ingrese el codigo del plan"/>
+                <p:commandButton value="BUSCAR PLAN" action="#{gestionarPlanes.buscar()}" update="@form"/>
 
             </p:panel>           
             <br/>
             <p:panel header="DATOS DE LOS PLANES" style="width:700px">
                 <p:panelGrid columns="4">
                     <p:outputLabel>Nombre Plan</p:outputLabel>
-                    <p:inputText id="tfNomPlan" required="true" value="#{registrarPlanBean.nombrePlan}" />
+                    <p:inputText id="tfNomPlan" required="false" value="#{gestionarPlanes.nombrePlan}" />
                     <p:outputLabel>Numero Emails</p:outputLabel>
-                    <p:inputText id="tfNumEmails" required="true" value="#{registrarPlanBean.numEmails}" />
+                    <p:inputText id="tfNumEmails" required="false" value="#{gestionarPlanes.numEmails}" />
                     <p:outputLabel>Numero Mensajes</p:outputLabel>
-                    <p:inputText id="tfNumMensajes" required="true" value="#{registrarPlanBean.numMensajes}" />
+                    <p:inputText id="tfNumMensajes" required="false" value="#{gestionarPlanes.numMensajes}" />
                     <p:outputLabel>Numero Push</p:outputLabel>
-                    <p:inputText id="tfNumPush" required="true" value="#{registrarPlanBean.numPush}" />
+                    <p:inputText id="tfNumPush" required="false" value="#{gestionarPlanes.numPush}" />
                     <p:outputLabel>Numero Sms</p:outputLabel>
-                    <p:inputText id="tfNumSms" required="true" value="#{registrarPlanBean.numSms}" />
-                    <p:outputLabel>ValoR Plan</p:outputLabel>
-                    <p:inputText id="tfValorPlan" required="true" value="#{registrarPlanBean.valorPlan}" />
+                    <p:inputText id="tfNumSms" required="false" value="#{gestionarPlanes.numSms}" />
+                    <p:outputLabel>Valor Plan</p:outputLabel>
+                    <p:inputText id="tfValorPlan" required="false" value="#{gestionarPlanes.valorPlan}" />
                 </p:panelGrid>
             </p:panel>  
             <br/>
             
-            <p:commandButton value="Editar" action="#{registrarPlanBean.editar()}" immediate="true" icon="ui-icon-disk" />
+            <p:commandButton value="Editar" action="#{gestionarPlanes.editar()}" icon="ui-icon-disk" update="@form"/>
 
 
             <p:commandButton value="VOLVER A MENU" action="menu" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>

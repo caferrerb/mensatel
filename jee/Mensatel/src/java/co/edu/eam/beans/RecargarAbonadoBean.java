@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.edu.eam.beans;
 
 import co.edu.eam.util.HTTPUtil;
+import co.edu.eam.util.Plan;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.SelectEvent;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -100,32 +96,46 @@ public class RecargarAbonadoBean implements Serializable {
 
     public void setFecha(String Fecha) {
         this.Fecha = Fecha;
-    }      
- 
+    }
 
-  
-    public void enviardatos(){
-            try {
-                String path = "procedimientos/recargarabonado";
-                
-                Fecha=año+"/"+mes;
-                String json;
-                json ="{\"Recargarabonado\":{ \"numero\":\""+numero+"\",\"plan\":\""+plan+"\",\"monto\":\""+monto+"\",\"numTarjeta\":\""+numTarjeta+"\",\"codigoseguridad\":\""+CodigoSeguridad+"\",\"fechaex\":\""+Fecha+"\"}}";
-                
-                String resp = HTTPUtil.doPostEnviar(path, json);
-                System.out.println(resp);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
-               
-                if (resp.equals(" {\"codigo\":\"COD-0000\",\"mensaje\":\"operacion exitosa\"}")) {
-                    limpiar();
-                }
+    Plan p = new Plan();
+    public List<Plan> planes;
 
-            } catch (Exception ex) {
-                Logger.getLogger(RecargarAbonadoBean.class.getName()).log(Level.SEVERE, null, ex);
+    @PostConstruct
+    public void postConstruct() {
+        planes = p.planes();
+
+    }
+
+    public List<Plan> getPlanes() {
+        return planes;
+    }
+
+    public void setPlanes(List<Plan> planes) {
+        this.planes = planes;
+    }
+
+    public void enviardatos() {
+        try {
+            String path = "procedimientos/recargarabonado";
+
+            Fecha = año + "/" + mes;
+            String json;
+            json = "{\"Recargarabonado\":{ \"numero\":\"" + numero + "\",\"plan\":\"" + plan + "\",\"monto\":\"" + monto + "\",\"numTarjeta\":\"" + numTarjeta + "\",\"codigoseguridad\":\"" + CodigoSeguridad + "\",\"fechaex\":\"" + Fecha + "\"}}";
+
+            System.out.println(json);
+            String resp = HTTPUtil.doPostEnviar(path, json);
+            System.out.println(resp);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
+
+            if (resp.equals(" {\"codigo\":\"COD-0000\",\"mensaje\":\"operacion exitosa\"}")) {
+                limpiar();
             }
-            
-            
-       
+
+        } catch (Exception ex) {
+            Logger.getLogger(RecargarAbonadoBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     private void limpiar() {
@@ -138,5 +148,5 @@ public class RecargarAbonadoBean implements Serializable {
         setFecha("");
         setCodigoSeguridad("");
     }
-    
+
 }

@@ -19,6 +19,10 @@ and open the template in the editor.
         <h:form>  
             <p:panel header="LISTA DE PLANES" style="width:1200px">
                 <p:dataTable var="p" value="#{listarPlanesBean.planes}">
+                    
+                      <p:column headerText="Codigo">
+                          <h:outputText value="#{p.idplan}" />
+                    </p:column>
                     <p:column headerText="Nombre Plan">
                         <h:outputText value="#{p.nombre}" />
                     </p:column>

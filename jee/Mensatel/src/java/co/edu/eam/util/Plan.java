@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.edu.eam.util;
 
 import com.google.gson.Gson;
@@ -18,9 +17,9 @@ import java.util.logging.Logger;
  * @author MAO
  */
 public class Plan {
-    
-   public String idplan;
-     public String nombre;
+
+    public String idplan;
+    public String nombre;
     public String numeromails;
     public String numeromsjs;
     public String numeropush;
@@ -83,37 +82,25 @@ public class Plan {
         this.valorplan = valorplan;
     }
 
-  
-    
-    
-    
-    public List<Plan> planes(){       
-        
+    public List<Plan> planes() {
+
         try {
             Gson json = new Gson();
             String path = "planes/listar";
-            String respuesta=HTTPUtil.doGetListar(path);
-            
-            
-            
-            
-            
-           
-               Plan[] planesitos= new Plan[1000];
-               planesitos = json.fromJson(respuesta, planesitos.getClass());
-                
-               planesitos = json.fromJson(respuesta, planesitos.getClass());
-                List<Plan> planes = Arrays.asList(planesitos);
-            
-            return   planes;
+            String respuesta = HTTPUtil.doGetListar(path);
+
+            Plan[] planesitos = new Plan[1000];
+            planesitos = json.fromJson(respuesta, planesitos.getClass());
+
+            planesitos = json.fromJson(respuesta, planesitos.getClass());
+            List<Plan> planes = Arrays.asList(planesitos);
+
+            return planes;
         } catch (Exception ex) {
             Logger.getLogger(Plan.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         return null;    
+
+        return null;
     }
-    
-    
-    
-    
+
 }

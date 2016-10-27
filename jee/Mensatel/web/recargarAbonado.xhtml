@@ -26,7 +26,9 @@ and open the template in the editor.
                             <p:outputLabel style="width:100%">Numero</p:outputLabel>
                             <p:inputText id="tfNumero" required="true" value="#{recargarAbonadoBean.numero}" />
                             <p:outputLabel style="width:100%">Plan</p:outputLabel>
-                            <p:inputText id="tfplan" required="true" value="#{recargarAbonadoBean.plan}" />
+                            <p:selectOneMenu value="#{recargarAbonadoBean.plan}" id="cbxPlanes" style="width:110%">
+                                <f:selectItems value="#{recargarAbonadoBean.planes}" var="p" itemValue="${p.idplan}" itemLabel="${p.nombre}" />
+                    </p:selectOneMenu> 
                             <p:outputLabel style="width:100%">Monto</p:outputLabel>
                             <p:inputText id="tfMonto" required="true" value="#{recargarAbonadoBean.monto}" />
                         </p:panelGrid>

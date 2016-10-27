@@ -46,7 +46,6 @@ public class ListarPlanesBean implements Serializable {
     
        @PostConstruct
     public void postConstruct() {
-        // Postcontruct que me carga el listado de los colores marcas y categorias el abrir la aplicacino
         planes = p.planes();
        
     }
