@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Planes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <br/>
+        <h:form>  
+            <p:panel header="REGISTRO DE PLANES" style="width:700px">
+                <p:panelGrid columns="4">
+                    <p:outputLabel>Nombre Plan</p:outputLabel>
+                    <p:inputText id="tfNomPlan" required="true" value="" />
+                    <p:outputLabel>Numero Emails</p:outputLabel>
+                    <p:inputText id="tfNumEmails" required="true" value="" />
+                    <p:outputLabel>Numero Mensajes</p:outputLabel>
+                    <p:inputText id="tfNumMensajes" required="true" value="#{usuariosBean.nombre}" />
+                    <p:outputLabel>Numero Push</p:outputLabel>
+                    <p:inputText id="tfNumPush" required="true" value="#{usuariosBean.apellido}" />
+                    <p:outputLabel>Numero Sms</p:outputLabel>
+                    <p:inputText id="tfNumSms" required="true" value="" />
+                    <p:outputLabel>Valos Plan</p:outputLabel>
+                    <p:inputText id="tfValosPlan" required="true" value="#{usuariosBean.nombre}" />
+                </p:panelGrid>
+            </p:panel>           
+            <br/>
+            <p:commandButton value="REGISTRAR PLANES" action="Guardar" immediate="true"/>
+            <p:commandButton value="VOLVER A MENU" action="menu" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
+        </h:form>
+    </h:body>
+</html>
