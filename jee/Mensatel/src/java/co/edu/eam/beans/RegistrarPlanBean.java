@@ -20,9 +20,9 @@ import javax.inject.Named;
  */
 @ManagedBean
 @ViewScoped
-
 public class RegistrarPlanBean implements Serializable {
 
+    public String idplan;
     public String nombrePlan;
     public String numEmails;
     public String numMensajes;
@@ -77,8 +77,23 @@ public class RegistrarPlanBean implements Serializable {
     public void setValorPlan(String valorPlan) {
         this.valorPlan = valorPlan;
     }
+
+    public String getIdplan() {
+        return idplan;
+    }
+
+    public void setIdplan(String idplan) {
+        this.idplan = idplan;
+    }
+    
+    public void guardar(){
+    }
+    
+    public void editar(){}
+    public void buscar(){}
     
     private void limpiar(){
+        
         setNombrePlan("");
         setNumEmails("");
         setNumMensajes("");

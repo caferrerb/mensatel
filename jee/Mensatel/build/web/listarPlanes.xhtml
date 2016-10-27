@@ -18,24 +18,24 @@ and open the template in the editor.
         <br/>
         <h:form>  
             <p:panel header="LISTA DE PLANES" style="width:1200px">
-                <p:dataTable var="PLAN" value="#{dtBasicView.cars}">
+                <p:dataTable var="p" value="#{listarPlanesBean.planes}">
                     <p:column headerText="Nombre Plan">
-                        <h:outputText value="#{car.id}" />
+                        <h:outputText value="#{p.nombre}" />
                     </p:column>
                     <p:column headerText="Numero Emails">
-                        <h:outputText value="#{car.year}" />
+                        <h:outputText value="#{p.numeromails}" />
                     </p:column>
                     <p:column headerText="Numero Mensajes">
-                        <h:outputText value="#{car.brand}" />
+                        <h:outputText value="#{p.numeromsjs}" />
                     </p:column>
                     <p:column headerText="Numero Push">
-                        <h:outputText value="#{car.color}" />
+                        <h:outputText value="#{p.numeropush}" />
                     </p:column>
                     <p:column headerText="Numero Sms">
-                        <h:outputText value="#{car.brand}" />
+                        <h:outputText value="#{p.numeromsjs}" />
                     </p:column>
-                    <p:column headerText="Valos Plan">
-                        <h:outputText value="#{car.color}" />
+                    <p:column headerText="Valor Plan">
+                        <h:outputText value="#{p.valorplan}" />
                     </p:column>                    
                 </p:dataTable>
             </p:panel>           

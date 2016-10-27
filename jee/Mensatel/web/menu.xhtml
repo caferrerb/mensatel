@@ -31,12 +31,12 @@ and open the template in the editor.
                     <p:menuitem value="Recargar Abonado" actionListener="#{menuView.save}" icon="ui-icon-disk" url="/faces/recargarAbonado.xhtml" />  
                 </p:submenu>               
                 <p:submenu label="PLANES">
-                    <p:menuitem value="Registrar Plan" actionListener="#{menuView.save}" ajax="false" icon="ui-icon-disk"  url="/faces/crearPlanes.xhtml" />
-                    <p:separator />
-                    <p:menuitem value="Buscar Plan" actionListener="#{menuView.update}"  ajax="false" icon="ui-icon-arrowrefresh-1-w" url="/faces/buscarPlanes.xhtml"/> 
-                    <p:separator />
-                    <p:menuitem value="Modificar Plan" actionListener="#{menuView.save}" ajax="false" icon="ui-icon-pencil" url="/faces/editarPlanes.xhtml"/>
-                    <p:separator />
+                    <p:menuitem value="Crear Planes" actionListener="#{menuView.save}" ajax="false" icon="ui-icon-disk"  url="/faces/crearPlanes.xhtml" />
+                    <p:separator />                
+                   
+                    <p:menuitem value="Edicion de Planes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-document" url="/faces/buscarPlanes.xhtml"/>  
+                    <p:separator />                
+                   
                     <p:menuitem value="Lista de Planes" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-document" url="/faces/listarPlanes.xhtml"/>  
                 </p:submenu>                                 
             </p:menubar> 

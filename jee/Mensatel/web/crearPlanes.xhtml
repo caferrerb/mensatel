@@ -19,6 +19,9 @@ and open the template in the editor.
         <h:form>  
             <p:panel header="REGISTRO DE PLANES" style="width:700px">
                 <p:panelGrid columns="4">
+
+                      <p:outputLabel>Codigo Plan</p:outputLabel>
+                    <p:inputText id="tfCodigo" required="true" value="#{registrarPlanBean.nombrePlan}" />
                     <p:outputLabel>Nombre Plan</p:outputLabel>
                     <p:inputText id="tfNomPlan" required="true" value="#{registrarPlanBean.nombrePlan}" />
                     <p:outputLabel>Numero Emails</p:outputLabel>
@@ -29,13 +32,40 @@ and open the template in the editor.
                     <p:inputText id="tfNumPush" required="true" value="#{registrarPlanBean.numPush}" />
                     <p:outputLabel>Numero Sms</p:outputLabel>
                     <p:inputText id="tfNumSms" required="true" value="#{registrarPlanBean.numSms}" />
-                    <p:outputLabel>Valos Plan</p:outputLabel>
+                    <p:outputLabel>Valor Plan</p:outputLabel>
                     <p:inputText id="tfValosPlan" required="true" value="#{registrarPlanBean.valorPlan}" />
                 </p:panelGrid>
             </p:panel>           
             <br/>
-            <p:commandButton value="REGISTRAR PLANES" action="Guardar" immediate="true"/>
+            <p:commandButton value="REGISTRAR PLANES" action="#{registrarPlanBean.guardar()}" immediate="true"/>
+       
             <p:commandButton value="VOLVER A MENU" action="menu" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
+        </h:form>
+        
+         <h:form>  
+            <p:panel header="LISTA DE PLANES" style="width:1200px">
+                <p:dataTable var="p" value="#{listarPlanesBean.planes}">
+                    <p:column headerText="Nombre Plan">
+                        <h:outputText value="#{p.nombre}" />
+                    </p:column>
+                    <p:column headerText="Numero Emails">
+                        <h:outputText value="#{p.numeromails}" />
+                    </p:column>
+                    <p:column headerText="Numero Mensajes">
+                        <h:outputText value="#{p.numeromsjs}" />
+                    </p:column>
+                    <p:column headerText="Numero Push">
+                        <h:outputText value="#{p.numeropush}" />
+                    </p:column>
+                    <p:column headerText="Numero Sms">
+                        <h:outputText value="#{p.numeromsjs}" />
+                    </p:column>
+                    <p:column headerText="Valor Plan">
+                        <h:outputText value="#{p.valorplan}" />
+                    </p:column>                    
+                </p:dataTable>
+            </p:panel>           
+            <br/>
         </h:form>
     </h:body>
 </html>
