@@ -20,17 +20,17 @@ and open the template in the editor.
             <p:panel header="REGISTRO DE PLANES" style="width:700px">
                 <p:panelGrid columns="4">
                     <p:outputLabel>Nombre Plan</p:outputLabel>
-                    <p:inputText id="tfNomPlan" required="true" value="" />
+                    <p:inputText id="tfNomPlan" required="true" value="#{registrarPlanBean.nombrePlan}" />
                     <p:outputLabel>Numero Emails</p:outputLabel>
-                    <p:inputText id="tfNumEmails" required="true" value="" />
+                    <p:inputText id="tfNumEmails" required="true" value="#{registrarPlanBean.numEmails}" />
                     <p:outputLabel>Numero Mensajes</p:outputLabel>
-                    <p:inputText id="tfNumMensajes" required="true" value="#{usuariosBean.nombre}" />
+                    <p:inputText id="tfNumMensajes" required="true" value="#{registrarPlanBean.numMensajes}" />
                     <p:outputLabel>Numero Push</p:outputLabel>
-                    <p:inputText id="tfNumPush" required="true" value="#{usuariosBean.apellido}" />
+                    <p:inputText id="tfNumPush" required="true" value="#{registrarPlanBean.numPush}" />
                     <p:outputLabel>Numero Sms</p:outputLabel>
-                    <p:inputText id="tfNumSms" required="true" value="" />
+                    <p:inputText id="tfNumSms" required="true" value="#{registrarPlanBean.numSms}" />
                     <p:outputLabel>Valos Plan</p:outputLabel>
-                    <p:inputText id="tfValosPlan" required="true" value="#{usuariosBean.nombre}" />
+                    <p:inputText id="tfValosPlan" required="true" value="#{registrarPlanBean.valorPlan}" />
                 </p:panelGrid>
             </p:panel>           
             <br/>

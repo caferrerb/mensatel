@@ -18,7 +18,7 @@ and open the template in the editor.
         <br/>
         <h:form>  
             <p:panel header="BUSQUEDA DE PLANES" style="width:700px">
-                <p:inputText style="margin-right:10px" placeholder="Ingrese el codigo del plan"/>
+                <p:inputText style="margin-right:10px" value="#{buscarPlanBean.idplan}" placeholder="Ingrese el codigo del plan"/>
                 <p:commandButton type="button" value="BUSCAR PLAN" icon="ui-icon-extlink" />
             </p:panel>           
             <br/>
@@ -29,13 +29,13 @@ and open the template in the editor.
                     <p:outputLabel>Numero Emails</p:outputLabel>
                     <p:inputText id="tfNumEmails" required="true" value="" />
                     <p:outputLabel>Numero Mensajes</p:outputLabel>
-                    <p:inputText id="tfNumMensajes" required="true" value="#{usuariosBean.nombre}" />
+                    <p:inputText id="tfNumMensajes" required="true" value="" />
                     <p:outputLabel>Numero Push</p:outputLabel>
-                    <p:inputText id="tfNumPush" required="true" value="#{usuariosBean.apellido}" />
+                    <p:inputText id="tfNumPush" required="true" value="" />
                     <p:outputLabel>Numero Sms</p:outputLabel>
                     <p:inputText id="tfNumSms" required="true" value="" />
                     <p:outputLabel>Valos Plan</p:outputLabel>
-                    <p:inputText id="tfValosPlan" required="true" value="#{usuariosBean.nombre}" />
+                    <p:inputText id="tfValosPlan" required="true" value="" />
                 </p:panelGrid>
             </p:panel>  
             <br/>

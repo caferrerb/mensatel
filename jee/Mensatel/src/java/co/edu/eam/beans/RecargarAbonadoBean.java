@@ -27,13 +27,14 @@ import javax.annotation.PostConstruct;
  */
 @ManagedBean
 @ViewScoped
-public class RecargaAbonadoBean implements Serializable{
-        public String numero;
+public class RecargarAbonadoBean implements Serializable {
+
+    public String numero;
     public String plan;
     public String monto;
     public String numTarjeta;
     public String CodigoSeguridad;
-     public String año;
+    public String año;
     public String mes;
     public String Fecha;
 
@@ -120,7 +121,7 @@ public class RecargaAbonadoBean implements Serializable{
                 }
 
             } catch (Exception ex) {
-                Logger.getLogger(RecargaAbonadoBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RecargarAbonadoBean.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             

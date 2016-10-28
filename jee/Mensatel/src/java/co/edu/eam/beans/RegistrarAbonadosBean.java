@@ -24,7 +24,7 @@ import javax.inject.Named;
 @ManagedBean
 @Named(value = "AbonadosBean")
 @ViewScoped
-public class AbonadosBean implements Serializable {
+public class RegistrarAbonadosBean implements Serializable {
     
     public String numero;
     public String documento;
@@ -78,7 +78,7 @@ public class AbonadosBean implements Serializable {
                 
             }
         } catch (Exception ex) {
-            Logger.getLogger(AbonadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarAbonadosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

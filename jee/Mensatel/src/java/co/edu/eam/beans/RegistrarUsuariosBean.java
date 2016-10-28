@@ -22,7 +22,7 @@ import javax.inject.Named;
  */
 @ManagedBean
 @ViewScoped
-public class UsuariosBean  implements Serializable{
+public class RegistrarUsuariosBean  implements Serializable{
     
     public String nombre;
     public String apellido;
@@ -93,7 +93,7 @@ public class UsuariosBean  implements Serializable{
                 limpiar();
        
         } catch (Exception ex) {
-            Logger.getLogger(AbonadosBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarAbonadosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

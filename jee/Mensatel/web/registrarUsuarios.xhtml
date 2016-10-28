@@ -21,11 +21,11 @@ and open the template in the editor.
             <p:panel header="REGISTRO DE USUARIOS" style="width:800px">
                 <p:panelGrid columns="4">
                     <p:outputLabel>Nombre</p:outputLabel>
-                    <p:inputText id="tfNombre" required="true" value="#{usuariosBean.nombre}" />
+                    <p:inputText id="tfNombre" required="true" value="#{registrarUsuariosBean.nombre}" />
                     <p:outputLabel>Apellido</p:outputLabel>
-                    <p:inputText id="tfapellido" required="true" value="#{usuariosBean.apellido}" />
+                    <p:inputText id="tfapellido" required="true" value="#{registrarUsuariosBean.apellido}" />
                     <p:outputLabel>Ciudad</p:outputLabel>
-                    <p:selectOneMenu required="true" value="#{usuariosBean.ciudad}" id="cbxciudad" style="width:100%">
+                    <p:selectOneMenu required="true" value="#{registrarUsuariosBean.ciudad}" id="cbxciudad" style="width:100%">
                         <f:selectItem itemLabel="Selecione" itemValue="" />
                         <f:selectItem itemLabel="Armenia" itemValue="1" />
                         <f:selectItem itemLabel="Bogota" itemValue="2" />
@@ -33,11 +33,11 @@ and open the template in the editor.
                         <f:selectItem itemLabel="Medellin" itemValue="4" />                 
                     </p:selectOneMenu>
                     <p:outputLabel>Correo</p:outputLabel>
-                    <p:inputText id="Correo" required="true" value="#{usuariosBean.correo}" />
+                    <p:inputText id="Correo" required="true" value="#{registrarUsuariosBean.correo}" />
                     <p:outputLabel>Documento</p:outputLabel>
-                    <p:inputText id="documento" required="true" value="#{usuariosBean.doc}" />
+                    <p:inputText id="documento" required="true" value="#{registrarUsuariosBean.doc}" />
                     <p:outputLabel>Tipo Documento</p:outputLabel>              
-                    <p:selectOneMenu required="true" value="#{usuariosBean.tipodoc}" id="cbxTipoDoc" style="width:100%">
+                    <p:selectOneMenu required="true" value="#{registrarUsuariosBean.tipodoc}" id="cbxTipoDoc" style="width:100%">
                         <f:selectItem itemLabel="Selecione" itemValue="" />
                         <f:selectItem itemLabel="CEDULA" itemValue="CEDULA" />
                         <f:selectItem itemLabel="TI" itemValue="TI" />
@@ -47,7 +47,7 @@ and open the template in the editor.
                 </p:panelGrid>
             </p:panel>           
             <br/>
-            <p:commandButton value="REGISTRAR" action="#{usuariosBean.enviarUsuario()}" update="@form"/>
+            <p:commandButton value="REGISTRAR" action="#{registrarUsuariosBean.enviarUsuario()}" update="@form"/>
             <p:commandButton value="VOLVER A MENU" action="menu"    immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
         </h:form>
     </h:body>

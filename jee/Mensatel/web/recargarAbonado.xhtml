@@ -24,21 +24,21 @@ and open the template in the editor.
                     <p:panel header="Datos">
                         <p:panelGrid  columns="6">
                             <p:outputLabel style="width:100%">Numero</p:outputLabel>
-                            <p:inputText id="tfNumero" required="true" value="#{recargaAbonadoBean.numero}" />
+                            <p:inputText id="tfNumero" required="true" value="#{recargarAbonadoBean.numero}" />
                             <p:outputLabel style="width:100%">Plan</p:outputLabel>
-                            <p:inputText id="tfplan" required="true" value="#{recargaAbonadoBean.plan}" />
+                            <p:inputText id="tfplan" required="true" value="#{recargarAbonadoBean.plan}" />
                             <p:outputLabel style="width:100%">Monto</p:outputLabel>
-                            <p:inputText id="tfMonto" required="true" value="#{recargaAbonadoBean.monto}" />
+                            <p:inputText id="tfMonto" required="true" value="#{recargarAbonadoBean.monto}" />
                         </p:panelGrid>
                     </p:panel>
                     <p:panel header="Datos Tarjeta">
                         <p:panelGrid  columns="4">
                             <p:outputLabel>Numero Tarjeta</p:outputLabel>
-                            <p:inputText id="numTarj" required="true" value="#{recargaAbonadoBean.numTarjeta}" />
+                            <p:inputText id="numTarj" required="true" value="#{recargarAbonadoBean.numTarjeta}" />
                             <p:outputLabel>Cod Seguridad</p:outputLabel>
-                            <p:inputText id="codSeg" required="true" value="#{recargaAbonadoBean.codigoSeguridad}" />
+                            <p:inputText id="codSeg" required="true" value="#{recargarAbonadoBean.codigoSeguridad}" />
                             <p:outputLabel>Año Exp </p:outputLabel>
-                            <p:selectOneMenu required="true" value="#{recargaAbonadoBean.año}" id="cbxaños" style="width:100%">
+                            <p:selectOneMenu required="true" value="#{recargarAbonadoBean.año}" id="cbxaños" style="width:100%">
                                 <f:selectItem itemLabel="Selecione año" itemValue="" />
                                 <f:selectItem itemLabel="2016" itemValue="2016" />
                                 <f:selectItem itemLabel="2017" itemValue="2017" />
@@ -49,7 +49,7 @@ and open the template in the editor.
                                 <f:selectItem itemLabel="2022" itemValue="2022" /> 
                             </p:selectOneMenu>
                             <p:outputLabel>Mes Exp</p:outputLabel>
-                            <p:selectOneMenu required="true" value="#{recargaAbonadoBean.mes}" id="cbxmes" style="width:100%">
+                            <p:selectOneMenu required="true" value="#{recargarAbonadoBean.mes}" id="cbxmes" style="width:100%">
                                 <f:selectItem itemLabel="Selecione Mes" itemValue="" />
                                 <f:selectItem itemLabel="Enero" itemValue="01" />  
                                 <f:selectItem itemLabel="Febrero" itemValue="02" />
@@ -69,7 +69,7 @@ and open the template in the editor.
                 </p:panelGrid>
             </p:panel>           
             <br/>
-            <p:commandButton value="RECARGAR" action="#{recargaAbonadoBean.enviardatos()}" update="@form"/>
+            <p:commandButton value="RECARGAR" action="#{recargarAbonadoBean.enviardatos()}" update="@form"/>
             <p:commandButton value="VOLVER A MENU" action="menu" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
         </h:form>
     </h:body>
