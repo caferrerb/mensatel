@@ -20,12 +20,10 @@ $this->view('elements/header'); ?>
 		  <div class="panel-heading">RECARGAR ABONADO</div>
 			<div class="panel-body">
 
-
-
 				<div class="col-md-6 col-md-offset-3">
 				      <form name="frmRecargar" novalidate ng-submit="recargar( recargarForm, recargarForm.$valid )">
 					      <fieldset>					
-							<div class="form-group label-floating" ng-class="{ 'has-error' : frmRecargar.numero.$invalid && !frmRecargar.numero.$pristine }">
+							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado</label>
 								<input class="form-control" name="numero" id="numero" type="text" required ng-model="recargarForm.numero" ng-minlength="10" ng-maxlength="10">
 								<p ng-show="!frmRecargar.$pristine && frmRecargar.numero.$error.required" class="help-block">Número abonado origen es requerido</p>

@@ -1,23 +1,36 @@
-app.controller('desvincularAbonadoCtrl', function($scope, $http, sendService ) {
+app.controller('desvincularAbonadoCtrl', function($scope, $http, sendService, ngNotify) {
 
-	$scope.respuestaDesvinculo = [];
 	var uriCtrl = 'desvincularAbonado/'
 
-    $scope.desvincularAbonado = function(numero){
+    $scope.desvincularAbonado = function(formData, isValid){
 
-        var data = {'numero':numero};
+        ngNotify.set('Enviando solicitud...', {
+            sticky: true
+        });
 
-        sendService.get(uriCtrl+'desvincularAbonado', data)
+        sendService.get(uriCtrl+'desvincularAbonado', formData)
             .then(
                 function( response ) {
-                    $scope.respuestaDesvinculo = response;
-                },
+                    ngNotify.dismiss();
+                    if(response.codigo != undefined){
 
+                        if(response.codigo == 'COD-0000'){
+                            ngNotify.set(response.mensaje, 'success');
+                        }else{
+                            ngNotify.set(response.mensaje, 'error');   
+                        }
+                    }
+                    
+                    if(response.respuesta.codigo == 0){
+                        ngNotify.set(response.respuesta.respuesta, 'success');
+                    }else{
+                        ngNotify.set(response.respuesta.respuesta, 'error');
+                    }
+                },
                 function( errorMessage ) {
-                    console.warn( errorMessage );
+                    ngNotify.dismiss();
+                    ngNotify.set(errorMessage, 'error');
                 }
             );
-
     }
-
 });

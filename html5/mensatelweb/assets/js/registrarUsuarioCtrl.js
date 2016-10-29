@@ -1,25 +1,37 @@
-app.controller('registrarUsuarioCtrl', function($scope, $http, sendService ) {
+app.controller('registrarUsuarioCtrl', function($scope, $http, sendService, ngNotify) {
 
-	$scope.push = [];
-    $scope.respuestaRegistro = [];
 	var uriCtrl = 'registrarUsuario/'    
 
-    $scope.registrarUsuario = function(nombre, apellido, ciudad, correo, doc, tipodoc){
+    $scope.registrarUsuario = function(formData, isValid){
 
-        var data = {'nombre':nombre, 'apellido':apellido, 'ciudad':ciudad, 
-        'correo':correo, 'doc':doc, 'tipodoc':tipodoc};
+        ngNotify.set('Enviando solicitud...', {
+            sticky: true
+        });
 
-        sendService.get(uriCtrl+'registrarUsuario', data)
+        sendService.get(uriCtrl+'registrarUsuario', formData)
             .then(
                 function( response ) {
-                    $scope.respuestaRegistro = response;
-                },
+                    ngNotify.dismiss();
+                    if(response.codigo != undefined){
 
+                        if(response.codigo == 'COD-0000'){
+                            ngNotify.set(response.mensaje, 'success');
+                        }else{
+                            ngNotify.set(response.respuesta, 'error');   
+                        }
+                    }
+                    
+                    if(response.respuesta.codigo == 0){
+                        ngNotify.set(response.respuesta.respuesta, 'success');
+                    }else{
+                        ngNotify.set(response.respuesta.respuesta, 'error');
+                    }
+                },
                 function( errorMessage ) {
-                    console.warn( errorMessage );
+                    ngNotify.dismiss();
+                    ngNotify.set(errorMessage, 'error');
                 }
             );
-
     }
 
 });

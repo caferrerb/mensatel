@@ -1,24 +1,36 @@
-app.controller('suscribirAbonadoCtrl', function($scope, $http, sendService ) {
+app.controller('suscribirAbonadoCtrl', function($scope, $http, sendService, ngNotify) {
 
-	$scope.push = [];
-    $scope.respuestaSuscripcion = [];
-	var uriCtrl = 'suscribirAbonado/'    
+    var uriCtrl = 'suscribirAbonado/'    
 
-    $scope.suscribirAbonado = function(numero, doc, tipodoc){
+    $scope.suscribirAbonado = function(formData, isValid){
 
-        var data = {'numero':numero, 'doc':doc, 'tipodoc':tipodoc};
+        ngNotify.set('Enviando solicitud...', {
+            sticky: true
+        });
 
-        sendService.get(uriCtrl+'suscribirAbonado', data)
+        sendService.get(uriCtrl+'suscribirAbonado', formData)
             .then(
                 function( response ) {
-                    $scope.respuestaSuscripcion = response;
-                },
+                    ngNotify.dismiss();
+                    if(response.codigo != undefined){
 
+                        if(response.codigo == 'COD-0000'){
+                            ngNotify.set(response.mensaje, 'success');
+                        }else{
+                            ngNotify.set(response.respuesta, 'error');   
+                        }
+                    }
+                    
+                    if(response.respuesta.codigo == 0){
+                        ngNotify.set(response.respuesta.respuesta, 'success');
+                    }else{
+                        ngNotify.set(response.respuesta.respuesta, 'error');
+                    }
+                },
                 function( errorMessage ) {
-                    console.warn( errorMessage );
+                    ngNotify.dismiss();
+                    ngNotify.set(errorMessage, 'error');
                 }
             );
-
     }
-
 });

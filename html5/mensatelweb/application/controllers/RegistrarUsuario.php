@@ -27,33 +27,15 @@ class registrarUsuario extends CI_Controller {
     }
 
     public function registrarUsuario(){
-        $nombre = $this->input->get('nombre');
-        $apellido  = $this->input->get('apellido');
-        $ciudad = $this->input->get('ciudad');
-        $correo = $this->input->get('correo');
-        $doc = $this->input->get('doc');
-        $tipodoc = $this->input->get('tipodoc');	
-
-        
+              
         $params = array(
-            'Registrousuario' => array(
-                    'nombre'=> $nombre,
-                    'apellido'=> $apellido,
-                    'ciudad' => $ciudad,
-                    'correo' => $correo,
-                    'doc' => $doc,
-                    'tipodoc' => $tipodoc)
+            'Registrousuario'=> $this->input->get()
         );
 
         $response = $this->rest->post($this->records->path_registrar_usuario, //Uri del servicio
                               json_encode($params), //array de parametros
                               'json' //mimetype a enviar
                              ); 
-
-        echo "<pre>";
-        print_r($response);
-        echo "</pre>";
-        die(__FILE__ . ' - In line - ' . __LINE__);
-
+        echo json_encode($response);
     }
 }

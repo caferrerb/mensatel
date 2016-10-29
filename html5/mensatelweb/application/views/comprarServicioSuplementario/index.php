@@ -18,34 +18,33 @@ $this->view('elements/header'); ?>
 		  <div class="panel-heading">COMPRAR SERVICIO SUPLEMENTARIO</div>
 			<div class="panel-body">
 
-
-
 				<div class="col-md-6 col-md-offset-3">
-				      <form>
-					      <fieldset>					
-							<div class="form-group label-floating">
+				      <form name="frmComprarServicioSuplementario" novalidate ng-submit="comprarServicioSuplementario(comprarServicioSuplementarioForm , comprarServicioSuplementarioForm.$valid )">
+					      <fieldset>
+
+					      	<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado</label>
-								<input class="form-control" name="numeroabonado" id="numeroabonado" type="text" required ng-model="numeroabonado">
-								<p class="help-block">Número abonado</p>
+								<input class="form-control" name="numeroabonado" id="numeroabonado" type="number" required ng-model="comprarServicioSuplementarioForm.numeroabonado" ng-minlength="10" ng-maxlength="10">
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.numeroabonado.$error.required" class="help-block">Número abonado es requerido</p>
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.numeroabonado.$error.minlength" class="help-block">Número mínimo de 10 digitos</p>
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.numeroabonado.$error.maxlength" class="help-block">Número máximo de 10 digitos</p>
 							</div>
 
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Código servicio</label>
-								<input class="form-control" name="codigoservicio" id="codigoservicio" type="text" required ng-model="codigoservicio">
-								<p class="help-block">Código servicio</p>
-							</div>	
+								<input class="form-control" name="codigoservicio" id="codigoservicio" type="number" required ng-model="comprarServicioSuplementarioForm.codigoservicio" ng-minlength="1" ng-maxlength="5">
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.required" class="help-block">Código servicio es requerido</p>
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.minlength" class="help-block">Código mínimo de 1 digito</p>
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.maxlength" class="help-block">Código máximo de 5 digitos</p>
+							</div>
 
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary" ng-click="comprarServicioSuplementario(numeroabonado, codigoservicio)">Comprar</button>
+								<button type="submit" class="btn btn-primary" ng-disabled="frmComprarServicioSuplementario.$invalid">Comprar</button>
 							</div>					
 
 						  </fieldset>
 					</form>
-
-					{{respuestaCompra}}
-
 				</div>
-
 			</div>
 		</div>
 

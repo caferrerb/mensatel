@@ -1,9 +1,6 @@
 app.controller('recargarCtrl', function($scope, $http, sendService, ngNotify ) {
 
-	$scope.push = [];
-    $scope.respuestaRecarga = [];
-	var uriCtrl = 'recargar/'
-
+    var uriCtrl = 'recargar/'
 
     $scope.recargar = function(formData, isValid){
 
