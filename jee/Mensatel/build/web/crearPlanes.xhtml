@@ -40,7 +40,7 @@ and open the template in the editor.
             <br/>
             <p:commandButton value="REGISTRAR PLANES" action="#{gestionarPlanes.guardar()}" update="@form"/>
        
-            <p:commandButton value="VOLVER A MENU" action="menu" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
+            <p:commandButton value="VOLVER A MENU" action="MasterPage" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
             
             <p:panel header="LISTA DE PLANES" style="width:1200px">
                 <p:dataTable var="p" value="#{gestionarPlanes.planes}">
