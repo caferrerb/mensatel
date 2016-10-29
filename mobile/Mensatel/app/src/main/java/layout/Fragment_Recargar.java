@@ -3,14 +3,19 @@ package layout;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import com.mensatel.mensatel.R;
 
+
+import java.util.regex.Pattern;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 
@@ -32,7 +37,11 @@ public class Fragment_Recargar extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    MaterialSpinner spinnerPlan;
+    MaterialSpinner spinnerPlan, spinnerAño, spinnerMes;
+    Button btnRecargar, btnCancelar;
+    Snackbar snackbar;
+    View snackbarView;
+    private TextInputLayout tilMonto, tilNumTar, tilCodigoS, tilAbonado;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,23 +77,163 @@ public class Fragment_Recargar extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_fragment__recargar, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment__recargar, container, false);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.plan, android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<CharSequence> adapterA = ArrayAdapter.createFromResource(getActivity(),
+                R.array.años, android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<CharSequence> adapterM = ArrayAdapter.createFromResource(getActivity(),
+                R.array.meses, android.R.layout.simple_spinner_item);
+
         spinnerPlan = (MaterialSpinner) view.findViewById(R.id.spinnerPlan);
+        spinnerAño = (MaterialSpinner) view.findViewById(R.id.spinnerYear);
+        spinnerMes = (MaterialSpinner) view.findViewById(R.id.spinnerMonth);
+
+        spinnerMes.setAdapter(adapterM);
         spinnerPlan.setAdapter(adapter);
+        spinnerAño.setAdapter(adapterA);
+
         spinnerPlan.setSelection(1);
+        spinnerAño.setSelection(1);
+        spinnerMes.setSelection(1);
+
+        tilCodigoS = (TextInputLayout) view.findViewById(R.id.til_codTarjeta);
+        tilNumTar = (TextInputLayout) view.findViewById(R.id.til_numTarjeta);
+        tilMonto = (TextInputLayout) view.findViewById(R.id.til_monto);
+        tilAbonado = (TextInputLayout) view.findViewById(R.id.til_abonado);
+
+        btnCancelar = (Button) view.findViewById(R.id.btnCancelarRecarga);
+        btnRecargar = (Button) view.findViewById(R.id.btnRecargar);
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpiarCampos();
+                snackbar = Snackbar.make(container, "Operacion Cancelada", Snackbar.LENGTH_SHORT);
+                snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                snackbar.show();
+            }
+        });
+
+        btnRecargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean val = validarDatos();
+                if (val) {
+                    snackbar = Snackbar.make(container, "Operacion Exitosa!", Snackbar.LENGTH_SHORT);
+                    snackbarView = snackbar.getView();
+                    snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
+                    snackbar.show();
+                } else {
+                    snackbar = Snackbar.make(container, "Verifique sus datos!", Snackbar.LENGTH_SHORT);
+                    snackbarView = snackbar.getView();
+                    snackbarView.setBackgroundColor(getResources().getColor(R.color.error));
+                    snackbar.show();
+                }
+            }
+        });
         return view;
     }
+
+    private void limpiarCampos() {
+        tilMonto.getEditText().setText("");
+        tilNumTar.getEditText().setText("");
+        tilCodigoS.getEditText().setText("");
+        tilAbonado.getEditText().setText("");
+
+        tilAbonado.setError(null);
+        tilNumTar.setError(null);
+        tilCodigoS.setError(null);
+        tilMonto.setError(null);
+
+        spinnerPlan.setSelection(1);
+        spinnerPlan.setError(null);
+        spinnerAño.setSelection(1);
+        spinnerMes.setSelection(1);
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    private boolean validarDatos() {
+        String monto = tilMonto.getEditText().getText().toString();
+        String numTar = tilNumTar.getEditText().getText().toString();
+        String codigo = tilCodigoS.getEditText().getText().toString();
+        String numero = tilAbonado.getEditText().getText().toString();
+
+        boolean a = valMonto(monto);
+        boolean b = validarNum(numero);
+        boolean c = valNumT(numTar);
+        boolean d = valPlan();
+        boolean e = valCodigo(codigo);
+
+        if (a && b && c && d && e) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean valMonto(String monto) {
+        if (monto.isEmpty()) {
+            tilMonto.setError("Monto invalido");
+            return false;
+        } else {
+            tilMonto.setError(null);
+        }
+        return true;
+    }
+
+    public boolean valNumT(String numero) {
+        if (numero.isEmpty() || numero.length() > 16) {
+            tilNumTar.setError("Numero Tarjeta Invalido");
+            return false;
+        } else {
+            tilNumTar.setError(null);
+        }
+        return true;
+    }
+
+    public boolean valCodigo(String codigo) {
+        if (codigo.isEmpty() || codigo.length() > 4) {
+            tilCodigoS.setError("Codigo Seguridad Invalido");
+            return false;
+        } else {
+            tilCodigoS.setError(null);
+        }
+        return true;
+    }
+
+    public boolean validarNum(String numero) {
+        Pattern pattern = Pattern.compile("[0-9]{10}");
+        if (!pattern.matcher(numero).matches()) {
+            tilAbonado.setError("Numero Invalido");
+            return false;
+        } else {
+            tilAbonado.setError(null);
+        }
+        return true;
+    }
+
+    public boolean valPlan() {
+        if (spinnerPlan.getSelectedItem().equals("Seleccione")) {
+            spinnerPlan.setError("Plan Invalido");
+            return false;
+        } else {
+            spinnerPlan.setError(null);
+        }
+        return true;
     }
 
     @Override
