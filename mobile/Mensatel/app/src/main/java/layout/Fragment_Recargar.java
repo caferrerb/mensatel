@@ -126,10 +126,10 @@ public class Fragment_Recargar extends Fragment {
             public void onClick(View v) {
                 boolean val = validarDatos();
                 if (val) {
-                    snackbar = Snackbar.make(container, "Operacion Exitosa!", Snackbar.LENGTH_SHORT);
+                    /*snackbar = Snackbar.make(container, "Operacion Exitosa!", Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();
                     snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
-                    snackbar.show();
+                    snackbar.show();*/
                 } else {
                     snackbar = Snackbar.make(container, "Verifique sus datos!", Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();

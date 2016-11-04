@@ -1,18 +1,17 @@
 package layout;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mensatel.hilos.AsyncTaskEnviarMensaje;
 import com.mensatel.mensatel.R;
 
 import java.util.regex.Pattern;
@@ -22,9 +21,11 @@ public class Fragment_Mensaje extends Fragment {
 
     //Referencias de campos
     private TextInputLayout tilNumero, tilDestino, tilMensaje;
-    Button btnEnviar,btnCancelar;
+    Button btnEnviar, btnCancelar;
     Snackbar snackbar;
     View snackbarView;
+
+    private AsyncTaskEnviarMensaje enviar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -47,7 +48,7 @@ public class Fragment_Mensaje extends Fragment {
             @Override
             public void onClick(View v) {
                 limpiarCampos();
-                snackbar = Snackbar.make(container,"Operacion Cancelada",Snackbar.LENGTH_SHORT);
+                snackbar = Snackbar.make(container, "Operacion Cancelada", Snackbar.LENGTH_SHORT);
                 snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 snackbar.show();
@@ -57,13 +58,22 @@ public class Fragment_Mensaje extends Fragment {
             @Override
             public void onClick(View v) {
                 boolean val = validarDatos();
-                if (val){
-                    snackbar = Snackbar.make(container,"Operacion Exitosa!",Snackbar.LENGTH_SHORT);
-                    snackbarView = snackbar.getView();
-                    snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
-                    snackbar.show();
-                }else{
-                    snackbar = Snackbar.make(container,"Verifique sus datos!",Snackbar.LENGTH_SHORT);
+                if (val) {
+                    try {
+                        String mensaje = tilMensaje.getEditText().getText().toString();
+                        String numero = tilNumero.getEditText().getText().toString();
+                        String destino = tilDestino.getEditText().getText().toString();
+                        enviar = new AsyncTaskEnviarMensaje(numero,destino,mensaje,Fragment_Mensaje.this,snackbar,snackbarView,container);
+                        enviar.execute();
+                        snackbar = Snackbar.make(container,"Nada", Snackbar.LENGTH_SHORT);
+                        snackbarView = snackbar.getView();
+                        snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
+                        snackbar.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    snackbar = Snackbar.make(container, "Verifique sus datos!", Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();
                     snackbarView.setBackgroundColor(getResources().getColor(R.color.error));
                     snackbar.show();
@@ -87,7 +97,7 @@ public class Fragment_Mensaje extends Fragment {
         return true;
     }
 
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         tilDestino.getEditText().setText("");
         tilMensaje.getEditText().setText("");
         tilNumero.getEditText().setText("");
@@ -95,6 +105,7 @@ public class Fragment_Mensaje extends Fragment {
         tilDestino.setError(null);
         tilMensaje.setError(null);
     }
+
     private boolean validarDatos() {
         String mensaje = tilMensaje.getEditText().getText().toString();
         String numero = tilNumero.getEditText().getText().toString();
