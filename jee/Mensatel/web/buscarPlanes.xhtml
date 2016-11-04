@@ -15,46 +15,51 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/default.css" rel="stylesheet" type="text/css"/>
-        
+
     </h:head>
-  
+
     <h:body>
         <br/>
-      
-                <div id="top">
-        <h:form>  
-                           <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
-            <p:panel header="BUSQUEDA DE PLANES" style="width:700px">
-                <p:inputText style="margin-right:20px" value="#{gestionarPlanes.idplan}" placeholder="Ingrese el codigo del plan"/>
-                <p:commandButton value="BUSCAR PLAN" action="#{gestionarPlanes.buscar()}" update="@form"/>
+        <div id="top">
+            <h:form>  
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 
-            </p:panel>           
-            <br/>
-            <p:panel header="DATOS DE LOS PLANES" style="width:700px">
-                <p:panelGrid columns="4">
-                    <p:outputLabel>Nombre Plan</p:outputLabel>
-                    <p:inputText id="tfNomPlan" required="false" value="#{gestionarPlanes.nombrePlan}" />
-                    <p:outputLabel>Numero Emails</p:outputLabel>
-                    <p:inputText id="tfNumEmails" required="false" value="#{gestionarPlanes.numEmails}" />
-                    <p:outputLabel>Numero Mensajes</p:outputLabel>
-                    <p:inputText id="tfNumMensajes" required="false" value="#{gestionarPlanes.numMensajes}" />
-                    <p:outputLabel>Numero Push</p:outputLabel>
-                    <p:inputText id="tfNumPush" required="false" value="#{gestionarPlanes.numPush}" />
-                    <p:outputLabel>Numero Sms</p:outputLabel>
-                    <p:inputText id="tfNumSms" required="false" value="#{gestionarPlanes.numSms}" />
-                    <p:outputLabel>Valor Plan</p:outputLabel>
-                    <p:inputText id="tfValorPlan" required="false" value="#{gestionarPlanes.valorPlan}" />
-                </p:panelGrid>
-            </p:panel>  
-            <br/>
-            
-            <p:commandButton value="Editar" action="#{gestionarPlanes.editar()}" icon="ui-icon-disk" update="@form"/>
+                <p:panel header="BUSQUEDA DE PLANES" style="width:700px">
+                    <p:panelGrid columns="4" style="width:500px">
+                        <p:outputLabel style="width:100%">Plan</p:outputLabel>
+                        <p:selectOneMenu value="#{gestionarPlanes.planSeleccionado}" id="cbxPlan" style="width:100%">
+                            <f:selectItems value="#{gestionarPlanes.planes}" var="p" itemValue="${p.idplan}" itemLabel="${p.nombre}" />
+
+                        </p:selectOneMenu> 
+                        <p:commandButton value="BUSCAR PLAN" action="#{gestionarPlanes.buscar()}" update="@form"/>
+                    </p:panelGrid>
+                </p:panel>           
+                <br/>
+                <p:panel header="DATOS DE LOS PLANES" style="width:700px">
+                    <p:panelGrid columns="4">             
+                        <p:outputLabel>Nombre Plan</p:outputLabel>
+                        <p:inputText id="tfNomPlan" required="false" value="#{gestionarPlanes.nombrePlan}" />
+                        <p:outputLabel>Numero Emails</p:outputLabel>
+                        <p:inputText id="tfNumEmails" required="false" value="#{gestionarPlanes.numEmails}" />
+                        <p:outputLabel>Numero Mensajes</p:outputLabel>
+                        <p:inputText id="tfNumMensajes" required="false" value="#{gestionarPlanes.numMensajes}" />
+                        <p:outputLabel>Numero Push</p:outputLabel>
+                        <p:inputText id="tfNumPush" required="false" value="#{gestionarPlanes.numPush}" />
+                        <p:outputLabel>Numero Sms</p:outputLabel>
+                        <p:inputText id="tfNumSms" required="false" value="#{gestionarPlanes.numSms}" />
+                        <p:outputLabel>Valor Plan</p:outputLabel>
+                        <p:inputText id="tfValorPlan" required="false" value="#{gestionarPlanes.valorPlan}" />
+                    </p:panelGrid>
+                </p:panel>  
+                <br/>
+
+                <p:commandButton value="Editar" action="#{gestionarPlanes.editar()}" icon="ui-icon-disk" update="@form"/>
 
 
-            <p:commandButton value="VOLVER A MENU" action="MasterPage" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
-        </h:form>
-            </div>
+                <p:commandButton value="VOLVER A MENU" action="MasterPage" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
+            </h:form>
+        </div>
     </h:body>
-          
+
 </html>

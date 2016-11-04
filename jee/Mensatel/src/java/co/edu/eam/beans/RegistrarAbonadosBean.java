@@ -69,15 +69,10 @@ public class RegistrarAbonadosBean implements Serializable {
             json = "{\"Registroabonado\":{ \"numero\":\"" + numero + "\",\"doc\": \"" + documento + "\", \"tipodoc\":\"" + tipodoc + "\" }}";
             String resp = HTTPUtil.doPostEnviar(path, json);
             System.out.println(resp);
-            if (resp.contains("COD-0000")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
+          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
                 limpiar();
-            } else if (resp.contains("COD-00001")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
-                
-                
-            }
         } catch (Exception ex) {
+                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Informacion", "Ha ocurrido un error inesperado, por favor verifique que los datos sean correctos"));
             Logger.getLogger(RegistrarAbonadosBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -129,12 +129,12 @@ public class RecargarAbonadoBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Informacion", resp));
 
             if (resp.equals(" {\"codigo\":\"COD-0000\",\"mensaje\":\"operacion exitosa\"}")) {
-                limpiar();
+            limpiar();
             }
 
         } catch (Exception ex) {
-            
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Informacion", "Ha ocurrido un error inesperado"));
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Informacion", "Ha ocurrido un error inesperado"));
 
             Logger.getLogger(RecargarAbonadoBean.class.getName()).log(Level.SEVERE, null, ex);
         }
