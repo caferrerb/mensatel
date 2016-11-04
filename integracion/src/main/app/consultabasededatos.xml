@@ -340,4 +340,71 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
             </catch-exception-strategy>
         </choice-exception-strategy>
     </flow>
+        <flow name="consultabasededatosFlow5">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/consultas/abonadosusuario" allowedMethods="POST" doc:name="Endpoint consulta informacion usuario"/>
+        <json:validate-schema schemaLocation="jsonAbonadosUsuarios.json" doc:name="Validacion esquema JSON" dereferencing="INLINE"/>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON a Objeto"/>
+        <validation:all doc:name="Validacion de campos">
+            <validation:validations>
+                <validation:is-number value="#[payload.Abonadosusuario.documento]" numberType="LONG" message="#['El numero del documento es invalido']"/>
+                <validation:matches-regex value="#[payload.Abonadosusuario.tipodoc]" regex="^[a-zA-Z]+$" message="#['El tipo de documento es invalido']"/>
+            </validation:validations>
+        </validation:all>
+        <db:select config-ref="Oracle_Configuration" doc:name="Base de datos Mensatel">
+            <db:parameterized-query><![CDATA[SELECT AB.NUMERO FROM ABONADO AB WHERE AB.FK_USU_DOC=#[payload.Abonadosusuario.documento] AND AB.FK_USU_TIPO_DOC = #[payload.Abonadosusuario.tipodoc]]]></db:parameterized-query>
+        </db:select>
+        <choice doc:name="Choice">
+            <when expression="#[payload.isEmpty()]">
+                <dw:transform-message doc:name="Respuesta">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	codigo:"-1",
+	respuesta:"Usuario no existe"
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </when>
+            <otherwise>
+                <dw:transform-message doc:name="Respuesta">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	numero:payload.NUMERO
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </otherwise>
+        </choice>
+        <choice-exception-strategy doc:name="Excepciones Capturadas">
+            <catch-exception-strategy when="#[exception.causeMatches('*JsonSchemaValidationException')]" doc:name="Excepcion estructura JSON">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-1,
+		respuesta:'Error estructura json'
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+            <catch-exception-strategy when="#[exception.causedBy(org.mule.extension.validation.api.MultipleValidationException)]" doc:name="Excepcion en los validadores">
+                <set-payload value="#[exception]" doc:name="Captura del mensaje"/>
+                <dw:transform-message doc:name="Transform Message">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/json
+---
+{
+	respuesta:{
+		codigo:-2,
+		respuesta:payload.message
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+            </catch-exception-strategy>
+        </choice-exception-strategy>
+    </flow>
 </mule>

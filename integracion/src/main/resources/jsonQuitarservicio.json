@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Quitarservicio": {
+      "type": "object",
+      "properties": {
+        "numeroabonado": {
+          "type": "string"
+        },
+        "codigoservicio": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "numeroabonado",
+        "codigoservicio"
+      ]
+    }
+  },
+  "required": [
+    "Quitarservicio"
+  ]
+}
