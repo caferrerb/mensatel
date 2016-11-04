@@ -3,8 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $this->view('elements/header'); ?>
 
-
-
 <div class="row" ng-controller="recargarCtrl">
 	
 	<div class="col-sm-12">
@@ -21,7 +19,7 @@ $this->view('elements/header'); ?>
 			<div class="panel-body">
 
 				<div class="col-md-6 col-md-offset-3">
-				      <form name="frmRecargar" novalidate ng-submit="recargar( recargarForm, recargarForm.$valid )">
+				      <form name="frmRecargar" novalidate ng-submit="recargar( recargarForm, recargarForm.$valid )" ng-init="listarPlanes()">
 					      <fieldset>					
 							<div class="form-group label-floating">
 								<label class="control-label" for="focusedInput2">Número abonado</label>
@@ -35,8 +33,7 @@ $this->view('elements/header'); ?>
 								<label class="control-label" for="focusedInput2">Plan</label>
 								<!-- <input class="form-control" name="plan" id="plan" type="number" required ng-model="recargarForm.plan"> -->
 								<select name="plan" id="plan" class="form-control" required ng-model="recargarForm.plan">
-						          	<option value="1">Plus</option>
-							        <option value="2">Premium</option>
+						          	<option ng-repeat="plan in listaPlanes" value="{{plan.idplan}}">{{plan.nombre}}</option>
 						        </select>
 								<p ng-show="!frmRecargar.$pristine && frmRecargar.plan.$error.required" class="help-block">Plan es requerido</p>
 							</div>

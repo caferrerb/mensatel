@@ -83,6 +83,12 @@ $this->view('elements/header'); ?>
 					  <p class="help-block">Endpoint para registrar usuario</p>
 					</div>
 
+					<div class="form-group label-floating">
+					  <label class="control-label" for="focusedInput2">Uri Listar planes</label>
+					  <input class="form-control" name="path_listar_planes" id="focusedInput2" type="text" required value="<?php echo $data->path_listar_planes ?>">
+					  <p class="help-block">Endpoint para listar planes</p>
+					</div>
+
 					<input type="hidden" name="id" value="<?php echo $data->id ?>">
 				    
 				    <div class="form-group">

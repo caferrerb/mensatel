@@ -31,11 +31,13 @@ $this->view('elements/header'); ?>
 							</div>
 
 							<div class="form-group label-floating">
-								<label class="control-label" for="focusedInput2">Código servicio</label>
-								<input class="form-control" name="codigoservicio" id="codigoservicio" type="number" required ng-model="comprarServicioSuplementarioForm.codigoservicio" ng-minlength="1" ng-maxlength="5">
-								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.required" class="help-block">Código servicio es requerido</p>
-								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.minlength" class="help-block">Código mínimo de 1 digito</p>
-								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.maxlength" class="help-block">Código máximo de 5 digitos</p>
+								<label class="control-label" for="focusedInput2">Servicio</label>
+								<select name="codigoservicio" id="codigoservicio" class="form-control" required ng-model="comprarServicioSuplementarioForm.codigoservicio">
+						          	<option value="1">SMS</option>
+							        <option value="2">Push</option>
+							        <option value="3">Correo electronico</option>
+						        </select>
+								<p ng-show="!frmComprarServicioSuplementario.$pristine && frmComprarServicioSuplementario.codigoservicio.$error.required" class="help-block">Plan es requerida</p>
 							</div>
 
 							<div class="form-group">

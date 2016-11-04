@@ -1,19 +1,17 @@
-app.controller('recargarCtrl', function($scope, $http, sendService, ngNotify ) {
+app.controller('quitarServicioSuplementarioCtrl', function($scope, $http, sendService, ngNotify) {
 
-    var uriCtrl = 'recargar/';
-    $scope.listaPlanes = [];
+	var uriCtrl = 'quitarServicioSuplementario/'
 
-    $scope.recargar = function(formData, isValid){
+    $scope.quitarServicioSuplementario = function(formData, isValid){
 
         ngNotify.set('Enviando solicitud...', {
             sticky: true
         });
 
-        sendService.get(uriCtrl+'recargar', formData)
+        sendService.get(uriCtrl+'quitarServicioSuplementario', formData)
             .then(
                 function( response ) {
                     ngNotify.dismiss();
-
                     if(response.codigo != undefined){
 
                         if(response.codigo == 'COD-0000'){
@@ -29,30 +27,11 @@ app.controller('recargarCtrl', function($scope, $http, sendService, ngNotify ) {
                         ngNotify.set(response.respuesta.respuesta, 'error');
                     }
                 },
-
-                function( errorMessage ) {
+               function( errorMessage ) {
                     ngNotify.dismiss();
                     ngNotify.set(errorMessage, 'error');
                 }
             );
     }
-
-    $scope.listarPlanes = function(){
-
-        sendService.get(uriCtrl+'listarPlanes')
-            .then(
-                function( response ) {
-                   $scope.listaPlanes = response;
-                   console.log($scope.listaPlanes);
-                },
-
-                function( errorMessage ) {
-                    ngNotify.dismiss();
-                    ngNotify.set(errorMessage, 'error');
-                }
-            );
-    }
-
-
 
 });

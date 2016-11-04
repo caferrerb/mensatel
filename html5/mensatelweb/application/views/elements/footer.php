@@ -16,7 +16,8 @@
 		'suscribirAbonadoCtrl.js',
 		'registrarUsuarioCtrl.js',
 		'comprarServicioSuplementarioCtrl.js',
-		'desvincularAbonadoCtrl.js'
+		'desvincularAbonadoCtrl.js',
+		'quitarServicioSuplementarioCtrl.js'
 		);
 
 	echo add_js($js);

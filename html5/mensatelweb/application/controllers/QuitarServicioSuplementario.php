@@ -1,10 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Recargar extends CI_Controller {
+class QuitarServicioSuplementario extends CI_Controller {
 
-
-	
 	public function __construct()
     {
         parent::__construct();
@@ -19,30 +17,25 @@ class Recargar extends CI_Controller {
         $this->rest->initialize($config);
     }
 
-    /**
+     /**
      * 
      */
     public function index(){
         $this->data['title'] = "Mensatel ADMIN";
 
-        $this->load->view('recargar/index', $this->data);
+        $this->load->view('quitarServicioSuplementario/index', $this->data);
     }
 
-    public function recargar(){
+    public function quitarServicioSuplementario(){
+        
         $params = array(
-            'Recargarabonado' => $this->input->get()
+            'Quitarservicio' => $this->input->get()
         );
 
-        $response = $this->rest->post($this->records->path_recargas, //Uri del servicio
+        $response = $this->rest->post($this->records->path_cancelar_servicio_suplementario, //Uri del servicio
                               json_encode($params), //array de parametros
                               'json' //mimetype a enviar
                              ); 
         echo json_encode($response);
     }
-
-    public function listarPlanes(){
-        $response = $this->rest->post($this->records->path_listar_planes); 
-        echo json_encode($response);
-    }
-
 }

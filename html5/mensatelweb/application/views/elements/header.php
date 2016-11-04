@@ -46,8 +46,8 @@
 		        <li><a href="<?= site_url('recargar') ?>">Recargas</a></li>
 		        <li><a href="<?= site_url('enviarMensaje') ?>">Enviar Mensaje</a></li>
 		        <li><a href="<?= site_url('suscribirAbonado') ?>">Suscribir abonado</a></li>
-		        <li><a href="<?= site_url('registrarUsuario') ?>">Registrar usuario</a></li>
 		        <li><a href="<?= site_url('comprarServicioSuplementario') ?>">Comprar servicio suplementario</a></li>
+		        <li><a href="<?= site_url('quitarServicioSuplementario') ?>">Quitar servicio suplementario</a></li>
 		        <li><a href="<?= site_url('desvincularAbonado') ?>">Desvincular abonado</a></li> 
 		        
 		      </ul>
