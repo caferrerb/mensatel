@@ -26,8 +26,8 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 						  :N_ABONADO,
 						  :P_COD,
 						  :P_MSJ)}]]></db:parameterized-query>
-            <db:in-param name="IDSERVICIO" type="NUMERIC" value="#[payload.Quitarservicio.numeroabonado]"/>
-            <db:in-param name="N_ABONADO" type="NUMERIC" value="#[payload.Quitarservicio.codigoservicio]"/>
+            <db:in-param name="IDSERVICIO" type="NUMERIC" value="#[payload.Quitarservicio.codigoservicio]"/>
+            <db:in-param name="N_ABONADO" type="NUMERIC" value="#[payload.Quitarservicio.numeroabonado]"/>
             <db:out-param name="P_COD" type="VARCHAR"/>
             <db:out-param name="P_MSJ" type="VARCHAR"/>
         </db:stored-procedure>
