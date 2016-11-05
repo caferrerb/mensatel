@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.mensatel.hilos.AsyncTaskListarPlanes;
+import com.mensatel.hilos.AsyncTaskRecargarAbonado;
 import com.mensatel.mensatel.R;
 
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -33,6 +36,8 @@ public class Fragment_Recargar extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    AsyncTaskRecargarAbonado recargar;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -41,6 +46,8 @@ public class Fragment_Recargar extends Fragment {
     Button btnRecargar, btnCancelar;
     Snackbar snackbar;
     View snackbarView;
+    HashMap<String,String> map = new HashMap<String, String>();
+
     private TextInputLayout tilMonto, tilNumTar, tilCodigoS, tilAbonado;
 
     private OnFragmentInteractionListener mListener;
@@ -81,8 +88,8 @@ public class Fragment_Recargar extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fragment__recargar, container, false);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.plan, android.R.layout.simple_spinner_item);
+       /* ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.plan, android.R.layout.simple_spinner_item);*/
 
         ArrayAdapter<CharSequence> adapterA = ArrayAdapter.createFromResource(getActivity(),
                 R.array.años, android.R.layout.simple_spinner_item);
@@ -91,11 +98,13 @@ public class Fragment_Recargar extends Fragment {
                 R.array.meses, android.R.layout.simple_spinner_item);
 
         spinnerPlan = (MaterialSpinner) view.findViewById(R.id.spinnerPlan);
+        AsyncTaskListarPlanes listarPlanes = new AsyncTaskListarPlanes(map,spinnerPlan,Fragment_Recargar.this,snackbar,snackbarView,container);
+        listarPlanes.execute();
         spinnerAño = (MaterialSpinner) view.findViewById(R.id.spinnerYear);
         spinnerMes = (MaterialSpinner) view.findViewById(R.id.spinnerMonth);
 
         spinnerMes.setAdapter(adapterM);
-        spinnerPlan.setAdapter(adapter);
+       // spinnerPlan.setAdapter(adapter);
         spinnerAño.setAdapter(adapterA);
 
         spinnerPlan.setSelection(1);
@@ -126,10 +135,15 @@ public class Fragment_Recargar extends Fragment {
             public void onClick(View v) {
                 boolean val = validarDatos();
                 if (val) {
-                    /*snackbar = Snackbar.make(container, "Operacion Exitosa!", Snackbar.LENGTH_SHORT);
-                    snackbarView = snackbar.getView();
-                    snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
-                    snackbar.show();*/
+                    String monto = tilMonto.getEditText().getText().toString();
+                    String numTar = tilNumTar.getEditText().getText().toString();
+                    String codigo = tilCodigoS.getEditText().getText().toString();
+                    String numero = tilAbonado.getEditText().getText().toString();
+                    String fecha =  spinnerAño.getSelectedItem().toString()+"/"+spinnerMes.getSelectedItem().toString();
+                    //String plan = String.valueOf(spinnerPlan.getSelectedItemPosition());
+                    String plan = map.get(spinnerPlan.getSelectedItem().toString());
+                    recargar= new AsyncTaskRecargarAbonado(numero,plan,monto,numTar,codigo,fecha,Fragment_Recargar.this,snackbar,snackbarView,container);
+                    recargar.execute();
                 } else {
                     snackbar = Snackbar.make(container, "Verifique sus datos!", Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();

@@ -66,10 +66,6 @@ public class Fragment_Mensaje extends Fragment {
                         String destino = tilDestino.getEditText().getText().toString();
                         enviar = new AsyncTaskEnviarMensaje(numero,destino,mensaje,Fragment_Mensaje.this,snackbar,snackbarView,container);
                         enviar.execute();
-                        snackbar = Snackbar.make(container,"Envio", Snackbar.LENGTH_SHORT);
-                        snackbarView = snackbar.getView();
-                        snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
-                        snackbar.show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

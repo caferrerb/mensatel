@@ -1,12 +1,12 @@
 package com.mensatel.hilos;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.mensatel.mensatel.R;
 
@@ -15,46 +15,41 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import layout.Fragment_Mensaje;
+import layout.Fragment_Recargar;
 
 /**
- * Created by USUARIO on 29/10/2016.
+ * Created by Francisco on 05/11/2016.
  */
-
-public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
+public class AsyncTaskListarPlanes extends AsyncTask<Void, String, Boolean> {
 
     private StringBuffer buffer = null;
     private static final String USER_AGENT = "Mozilla/5.0";
 
     private static String IP = "174.142.65.144";
     private static String PUERTO = "8081";
-    private String path = "enviarmsj";
-    private final String ruta = "http://174.142.65.144:8081/enviarmsj";
-    private String numeroEmisor;
-    private String numeroDestino;
-    private String mensaje;
-    private Fragment_Mensaje activity;
+    private String path = "planes/listar";
+    private final String ruta = "http://174.142.65.144:8081/procedimientos/recargarabonado";
+    private HashMap<String,String> map;
+    private Spinner spinner;
+    private Fragment_Recargar activity;
     private Snackbar snackbar;
     private View snackbarView;
     private ViewGroup container;
     JSONObject jsonobject;
 
-    public AsyncTaskEnviarMensaje(String numEmisor, String numDestino, String mensaje, Fragment_Mensaje activity, Snackbar snackbar, View snack, ViewGroup container) {
-        this.mensaje = mensaje;
-        this.numeroEmisor = numEmisor;
-        this.numeroDestino = numDestino;
+    public AsyncTaskListarPlanes(HashMap<String,String> map,Spinner spiner,Fragment_Recargar activity, Snackbar snackbar, View snack, ViewGroup container) {
+        this.spinner=spiner;
+        this.map=map;
         this.activity = activity;
         this.snackbar = snackbar;
         this.snackbarView = snack;
@@ -71,7 +66,7 @@ public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
         /*try {
         /*Se crea la conexion*/
 
-        String jsonEnvio = "{\"Enviarmsj\":{\"abonadoorigen\":\"" + numeroEmisor + "\",\"abonadodestino\":\"" + numeroDestino + "\",\"mensaje\":\"" + mensaje + "\"}}";
+        String jsonEnvio = "";
 
         URL obj = null;
         try {
@@ -92,7 +87,7 @@ public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
             wr.close();
 
             int responseCode = con.getResponseCode();
-            publishProgress("Se envian los datos");
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
             buffer = new StringBuffer();
@@ -241,51 +236,40 @@ public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
             if (result) {
 
                 /*Como el resultado obtenido es un array JSON, se pasa el string JSON al array*/
-                JSONObject jsonarray = new JSONObject(buffer.toString());
-
+                JSONArray jsonarray = new JSONArray(buffer.toString());
+                ArrayList<String> nombre = new ArrayList<>();
                 /*Por cada elemento del JSON*/
+                for (int i = 0; i < jsonarray.length(); i++) {
 
                     /*Se saca el objeto del array y se pasa a un objeto JSON*/
-                    jsonobject = jsonarray.getJSONObject("respuesta");
-                    /*Se saca las variables del objeto*/
-                    if (jsonobject.getString("codigo") != "1") {
-                        snackbar = Snackbar.make(container, "Operacion Fallida!" + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
-                        snackbarView = snackbar.getView();
-                        snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));
-                        snackbar.show();
-
-                    } else {
-                        snackbar = Snackbar.make(container, "Operacion Exitosa!" + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
-                        snackbarView = snackbar.getView();
-                        snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.exito));
-                        snackbar.show();
-                    }
+                    jsonobject = jsonarray.getJSONObject(i);
+                    map.put(jsonobject.getString("nombre"),String.valueOf(jsonobject.getInt("idplan")));
+                    nombre.add(jsonobject.getString("nombre"));
 
 
-
+                }
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity.getActivity(),
+                        android.R.layout.simple_spinner_item, nombre);
+                spinner.setAdapter(adapter);
             } else {
-                if (jsonobject.getString("codigo") != "1") {
-                    snackbar = Snackbar.make(container, "Operacion Fallida!: " + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
+
+                    snackbar = Snackbar.make(container, "Operacion Fallida!", Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();
                     snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));
                     snackbar.show();
 
-                } else {
-                    snackbar = Snackbar.make(container, "Operacion Exitosa!: " + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
-                    snackbarView = snackbar.getView();
-                    snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.exito));
-                    snackbar.show();
-                }
 
-                Log.d("Aqui", "callo");
+
             }
         } catch (JSONException e) {
 
-            snackbar = Snackbar.make(container, "Operacion Errada!: " + e.getMessage(), Snackbar.LENGTH_SHORT);
+            snackbar = Snackbar.make(container, "Operacion Errada!" + e.getMessage(), Snackbar.LENGTH_SHORT);
             snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));
             snackbar.show();
             e.printStackTrace();
         }
+
+
     }
 }
