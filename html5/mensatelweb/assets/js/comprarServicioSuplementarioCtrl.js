@@ -15,7 +15,7 @@ app.controller('comprarServicioSuplementarioCtrl', function($scope, $http, sendS
                     if(response.codigo != undefined){
 
                         if(response.codigo == 'COD-0000'){
-                            ngNotify.set(response.mensaje, 'success');
+                            ngNotify.set(response.respuesta, 'success');
                         }else{
                             ngNotify.set(response.respuesta, 'error');   
                         }

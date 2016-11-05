@@ -17,7 +17,7 @@ app.controller('suscribirAbonadoCtrl', function($scope, $http, sendService, ngNo
                         if(response.codigo == 'COD-0000'){
                             ngNotify.set(response.mensaje, 'success');
                         }else{
-                            ngNotify.set(response.respuesta, 'error');   
+                            ngNotify.set(response.mensaje, 'error');   
                         }
                     }
                     

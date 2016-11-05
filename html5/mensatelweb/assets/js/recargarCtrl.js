@@ -18,7 +18,9 @@ app.controller('recargarCtrl', function($scope, $http, sendService, ngNotify ) {
 
                         if(response.codigo == 'COD-0000'){
                             ngNotify.set(response.mensaje, 'success');
-                        }else{
+                        }else if(response.mensaje != undefined){
+                            ngNotify.set(response.mensaje, 'error');   
+                        } else{
                             ngNotify.set(response.respuesta, 'error');   
                         }
                     }

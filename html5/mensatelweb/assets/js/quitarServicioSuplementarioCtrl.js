@@ -12,12 +12,12 @@ app.controller('quitarServicioSuplementarioCtrl', function($scope, $http, sendSe
             .then(
                 function( response ) {
                     ngNotify.dismiss();
-                    if(response.codigo != undefined){
+                    if(response.P_COD != undefined){
 
-                        if(response.codigo == 'COD-0000'){
-                            ngNotify.set(response.mensaje, 'success');
+                        if(response.P_COD == 'COD-0000'){
+                            ngNotify.set(response.P_MSJ, 'success');
                         }else{
-                            ngNotify.set(response.respuesta, 'error');   
+                            ngNotify.set(response.P_MSJ, 'error');   
                         }
                     }
                     

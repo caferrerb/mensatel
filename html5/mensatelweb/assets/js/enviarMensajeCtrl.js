@@ -17,7 +17,7 @@ app.controller('enviarMensajeCtrl', function($scope, $http, sendService, ngNotif
                 function( response ) {
                     ngNotify.dismiss();
 
-                    if(response.respuesta.codigo == 0){
+                    if(response.respuesta.codigo == 1){
                         ngNotify.set(response.respuesta.respuesta, 'success');
                     }else{
                         ngNotify.set(response.respuesta.respuesta, 'error');

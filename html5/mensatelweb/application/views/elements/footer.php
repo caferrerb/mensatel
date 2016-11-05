@@ -14,7 +14,6 @@
 		'recargarCtrl.js',
 		'enviarMensajeCtrl.js',
 		'suscribirAbonadoCtrl.js',
-		'registrarUsuarioCtrl.js',
 		'comprarServicioSuplementarioCtrl.js',
 		'desvincularAbonadoCtrl.js',
 		'quitarServicioSuplementarioCtrl.js'
