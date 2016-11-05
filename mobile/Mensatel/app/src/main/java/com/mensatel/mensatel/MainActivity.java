@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             fragmentGenerico = new Fragment_Recargar();
             transaction = true;
 
-        } else if (id == R.id.nav_saldo) {
+        } else if (id == R.id.nav_device) {
 
         }
 

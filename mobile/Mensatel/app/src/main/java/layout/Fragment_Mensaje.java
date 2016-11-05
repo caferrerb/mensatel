@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+
 import com.mensatel.hilos.AsyncTaskEnviarMensaje;
 import com.mensatel.mensatel.R;
 
@@ -65,7 +66,7 @@ public class Fragment_Mensaje extends Fragment {
                         String destino = tilDestino.getEditText().getText().toString();
                         enviar = new AsyncTaskEnviarMensaje(numero,destino,mensaje,Fragment_Mensaje.this,snackbar,snackbarView,container);
                         enviar.execute();
-                        snackbar = Snackbar.make(container,"Nada", Snackbar.LENGTH_SHORT);
+                        snackbar = Snackbar.make(container,"Envio", Snackbar.LENGTH_SHORT);
                         snackbarView = snackbar.getView();
                         snackbarView.setBackgroundColor(getResources().getColor(R.color.exito));
                         snackbar.show();

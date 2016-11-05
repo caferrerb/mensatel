@@ -16,12 +16,12 @@
             android:title="Recargar Abonado" />
     </group>
 
-    <item android:title="Consultas">
+    <item android:title="Servicios">
         <menu>
             <item
-                android:id="@+id/nav_saldo"
-                android:icon="@drawable/cash"
-                android:title="Saldo" />
+                android:id="@+id/nav_device"
+                android:icon="@mipmap/codetarjeta"
+                android:title="Agregar Device ID" />
         </menu>
     </item>
 
