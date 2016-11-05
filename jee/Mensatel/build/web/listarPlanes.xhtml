@@ -12,10 +12,16 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Suscripciones</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/default.css" rel="stylesheet" type="text/css"/>
+        
     </h:head>
     <h:body>
         <br/>
+        
+        <div id="top">
         <h:form>  
             <p:panel header="LISTA DE PLANES" style="width:1200px">
                 <p:dataTable var="p" value="#{listarPlanesBean.planes}">
@@ -44,8 +50,9 @@ and open the template in the editor.
                 </p:dataTable>
             </p:panel>           
             <br/>
-            <p:commandButton value="VOLVER A MENU" action="MasterPage" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
+            <p:commandButton value="VOLVER A MENU" action="MasterPage"  immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
         </h:form>
+            </div>
     </h:body>
 </html>
 

@@ -13,7 +13,12 @@ and open the template in the editor.
     <h:head>
         <title>Suscripciones</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
+        <link href="resources/css/default.css" rel="stylesheet" type="text/css"/>
+        
     </h:head>
+    
+    <div id="top">
     <h:body>
         <br/>
         <h:form> 
@@ -31,5 +36,6 @@ and open the template in the editor.
             <p:commandButton value="Eliminar Suscripcion" action="#{quitarServicioBean.quitar()}" update="@form"/>
             <p:commandButton value="VOLVER A MENU" action="MasterPage" immediate="true" icon="ui-icon-arrowreturnthick-1-w"/>
         </h:form>
+        </div>
     </h:body>
 </html>
