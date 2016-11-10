@@ -3,21 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/src/java/co/edu/eam/util/HTTPUtil.java</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/listarPlanes.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/ListarPlanesBean.java</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/RecargarAbonadoBean.java</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/crearPlanes.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/src/java/co/edu/eam/util/Plan.java</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/eliminarSuscripcion.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/GestionarPlanes.java</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/MasterPage.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/registrarUsuarios.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/registrarAbonados.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/menu.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/buscarPlanes.xhtml</file>
-            <file>file:/C:/Users/415pc12/Documents/NetBeansProjects/mensatel/jee/Mensatel/web/recargarAbonado.xhtml</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/GestionarPlanes.java</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/RecargarAbonadoBean.java</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/web/resources/css/cssLayout.css</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/web/recargarAbonado.xhtml</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/src/java/co/edu/eam/util/Plan.java</file>
+            <file>file:/C:/Users/MAO/Documents/NetBeansProjects/COMPILADORES/mensatel/jee/Mensatel/src/java/co/edu/eam/beans/ListarPlanesBean.java</file>
         </group>
     </open-files>
 </project-private>

@@ -11,42 +11,44 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Abonados</title>
+        <title>Inicio</title>
         <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css"/>
         <link href="resources/css/default.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>       
 
     </h:head>
 
-    
+
     <div >
         <h:body >
-        <p:layout fullPage="true">
+            <p:layout fullPage="true">
 
-            <p:layoutUnit  position="north"  header="header" >
-            </p:layoutUnit>
+                <p:layoutUnit  position="north"  header="header" >
+                </p:layoutUnit>
 
-            <p:layoutUnit  position="south"  header="Mensatel" >
-            </p:layoutUnit>
+                <p:layoutUnit  position="south"  header="Mensatel"  >
 
-            <p:layoutUnit   position="north" header="Menu Principal" >
+               </p:layoutUnit>
+
+                <p:layoutUnit   position="north" header="Menu Principal" >
+                    <li> <h:graphicImage value="resources/images/mensatel.png"  width="1200" height="150"   /></li>
+
+                </p:layoutUnit>
 
 
-            </p:layoutUnit>
+                <p:layoutUnit   id="centerLayout" header="Contenido" position="center">
 
 
-            <p:layoutUnit   id="centerLayout" header="Contenido" position="center">
+                    <h:form id="form" enctype="multipart/form-data">    
 
-                <li> <h:graphicImage value="resources/images/mensatel.png"  width="1800" height="200"   /></li>
-                <h:form id="form" enctype="multipart/form-data">              
-                    <ui:include src="menu.xhtml" /> 
+                        <ui:include src="menu.xhtml" /> 
 
-                </h:form>                      
+                    </h:form>                      
 
-            </p:layoutUnit>
-        </p:layout>
-    </h:body>
-        
-        </div>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </div>
 
 </html>
