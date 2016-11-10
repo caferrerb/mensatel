@@ -248,7 +248,7 @@ public class AsyncTaskRecargarAbonado extends AsyncTask<Void, String, Boolean> {
 
                 if( jsonarray.has("respuesta")){
                     jsonobject=jsonarray;
-                    if(jsonobject.getString("codigo")!="COD-0000") {
+                    if(!jsonobject.getString("codigo").equalsIgnoreCase("COD-0000")) {
                         snackbar = Snackbar.make(container, "Operacion Fallida! " + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
                         snackbarView = snackbar.getView();
                         snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));

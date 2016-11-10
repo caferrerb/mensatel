@@ -34,10 +34,10 @@
         <item>12</item>
     </string-array>
 
-    <string-array name="plan">
+    <string-array name="ServiciosSuplementario">
         <item>Seleccione</item>
-        <item>SuperPlan</item>
-        <item>TriplePlan</item>
-        <item>UltraPlan</item>
+        <item>Mail</item>
+        <item>Notificaciones Push</item>
+        <item>Sms</item>
     </string-array>
 </resources>

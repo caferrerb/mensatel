@@ -248,7 +248,7 @@ public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
                     /*Se saca el objeto del array y se pasa a un objeto JSON*/
                     jsonobject = jsonarray.getJSONObject("respuesta");
                     /*Se saca las variables del objeto*/
-                    if (jsonobject.getString("codigo") != "1") {
+                    if (!jsonobject.getString("codigo").equalsIgnoreCase("1")) {
                         snackbar = Snackbar.make(container, "Operacion Fallida!" + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
                         snackbarView = snackbar.getView();
                         snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));
@@ -264,7 +264,7 @@ public class AsyncTaskEnviarMensaje extends AsyncTask<Void, String, Boolean> {
 
 
             } else {
-                if (jsonobject.getString("codigo") != "1") {
+                if (!jsonobject.getString("codigo").equalsIgnoreCase("1")) {
                     snackbar = Snackbar.make(container, "Operacion Fallida!: " + jsonobject.getString("respuesta"), Snackbar.LENGTH_SHORT);
                     snackbarView = snackbar.getView();
                     snackbarView.setBackgroundColor(activity.getResources().getColor(R.color.error));

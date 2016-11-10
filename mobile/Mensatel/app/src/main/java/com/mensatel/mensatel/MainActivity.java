@@ -11,8 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import layout.Fragment_AgregarServicio;
 import layout.Fragment_Inicio;
 import layout.Fragment_Mensaje;
 import layout.Fragment_Recargar;
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         Fragment_Inicio.OnFragmentInteractionListener,
         Fragment_Mensaje.OnFragmentInteractionListener,
+        Fragment_AgregarServicio.OnFragmentInteractionListener,
         Fragment_Recargar.OnFragmentInteractionListener{
     NavigationView navigationView;
 
@@ -105,7 +106,8 @@ public class MainActivity extends AppCompatActivity
             transaction = true;
 
         } else if (id == R.id.nav_device) {
-
+           fragmentGenerico = new Fragment_AgregarServicio();
+            transaction = true;
         }
 
         if (transaction){

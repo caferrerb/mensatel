@@ -241,7 +241,7 @@ public class Fragment_Recargar extends Fragment {
     }
 
     public boolean valPlan() {
-        if (spinnerPlan.getSelectedItem().equals("Seleccione")) {
+        if (spinnerPlan.getSelectedItemPosition()==0) {
             spinnerPlan.setError("Plan Invalido");
             return false;
         } else {
